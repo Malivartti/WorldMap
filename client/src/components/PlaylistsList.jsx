@@ -1,12 +1,20 @@
 import React from 'react'
 import PlaylistItem from './PlaylistItem'
 
-export default function PlaylistsList() {
+export default function PlaylistsList({ title, playlists, setShowPlaylists }) {
+
   return (
     <>
-    <h1>Country</h1>
-        <PlaylistItem name="Вечерний плейлист" />
-        <PlaylistItem name="Вечерний плейлист"/>
+      <h2 className='title'>{title}</h2>
+      <div className='playlists__list'>
+        {playlists.map((playlist, index) =>
+          <PlaylistItem
+            key={index}
+            name={playlist.name}
+            onClick={() => setShowPlaylists(false)}
+          />
+        )}
+      </div>
     </>
   )
 }

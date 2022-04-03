@@ -1,13 +1,11 @@
 import React from 'react'
 import image from '../img/image 4.png'
 
-export default function PlaylistItem({name, showPlaylistSongs}) {
+export default function PlaylistItem({name, onClick}) {
   return (
-    <div className="playlist-item" onClick={showPlaylistSongs}>
-        <img src={image} alt="" className="playlist-img"/>
-        <div>{name}</div>
-        <span>heart</span>
-        <div>3:00</div>
+    <div className="playlist__item">
+        <img src={image} alt="" className="playlist__img" onClick={onClick}/>
+        <h3 className='playlist__item-title'>{name}</h3>
     </div>
   )
 }

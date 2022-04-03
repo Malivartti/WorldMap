@@ -2,12 +2,13 @@ import React from 'react'
 import image from '../img/image 3.png';
 
 
-export default function Favorites() {
+export function Favorites() {
   return (
     <div className="favorites">
-      <h1>Favorite tracks</h1>
-        <img src={image} alt="" className="playlist-img"/>
+      <h2 className='title'>Favorite tracks</h2>
+      <img src={image} alt="" className="playlist__img" />
     </div>
   )
 }
 
+export default Favorites;

@@ -1,29 +1,34 @@
 import React, { useState } from 'react';
-import world from '@svg-maps/world'
-import { SVGMap } from 'react-svg-map'
-import Form from './Form'
+import { useDispatch } from 'react-redux'
 import TrackSlider from './TrackSlider';
 import Favorites from './Favorites';
-import PlaylistModal from './Playlist';
-function App() {
-  const [country, setCountry] = useState('');
-  const [favorites, setFavorites] = useState([]);
-  const [isSelected, setSelected] = useState(true);
 
-  function handleClick(e){
-    setCountry(e.target.id)
-    console.log(e.target.id);
+import PlaylistModal from './Playlist';
+import world from '@svg-maps/world'
+import { SVGMap } from 'react-svg-map'
+import AppHeader from './AppHeader';
+import { getRequestCountry } from './../store/asuncActions/index';
+
+
+function App() {
+  const [isFavorites, setIsFavorites] = useState(false)
+  const [isSelected, setSelected] = useState(false);
+  const dispatch = useDispatch()
+
+  function handleClick(e) {
+    setSelected(true)
+    dispatch(getRequestCountry(e.target.id))
   }
 
   return (
     <div className="App">
-      <Favorites />
+      {isFavorites && <Favorites />}
       <div className="main">
-        <Form />
-        <SVGMap map={world} onLocationClick={handleClick} />
+        <AppHeader handle={{ isFavorites, isSelected, setIsFavorites, setSelected }} />
+        <SVGMap className='map' map={world} onLocationClick={handleClick} />
         <TrackSlider />
-        {isSelected && <PlaylistModal />}
       </div>
+      {isSelected && <PlaylistModal />}
     </div>
   );
 };

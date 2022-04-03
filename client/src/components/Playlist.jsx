@@ -4,11 +4,14 @@ import PlaylistSongs from './PlaylistSongs'
 
 
 export default function PlaylistModal() {
-  const [isClicked, setClicked] = useState(false);
+  const [showPlaylists, setShowPlaylists] = useState(true);
+  const playlists = [{name: 'TItle'}, {name: 'Nmsmddjdj'}, {name: '3inbhgugig'}]
 
   return (
-    <div className="modal">
-      { !isClicked ? <PlaylistsList /> : <PlaylistSongs playlistName="Вечерний плейлист"/>}
+    <div className="playlists">
+      {showPlaylists 
+      ? <PlaylistsList title={'Country'} playlists={playlists} setShowPlaylists={setShowPlaylists}/> 
+      : <PlaylistSongs playlistName="Вечерний плейлист" />}
     </div>
   )
 }

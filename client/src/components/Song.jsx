@@ -15,7 +15,7 @@ export default function Song() {
             favorite_border
         </span>
         <div>3:00</div>
-        <span class="material-icons outlined">
+        <span className="material-icons outlined">
             play_circle
         </span>
     </div>

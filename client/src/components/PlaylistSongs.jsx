@@ -4,7 +4,7 @@ import Song from './Song'
 export default function PlaylistSongs({playlistName}) {
   return (
     <>
-        <h1>{playlistName}</h1>
+        <h2 className='title'>{playlistName}</h2>
         <Song />
         <Song />
     </>
