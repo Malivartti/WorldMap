@@ -11,7 +11,7 @@ export default function PlaylistModal() {
     <div className="playlists">
       {showPlaylists 
       ? <PlaylistsList title={'Country'} playlists={playlists} setShowPlaylists={setShowPlaylists}/> 
-      : <PlaylistSongs playlistName={playlists[1].name} />}
+      : <PlaylistSongs playlistName="Вечерний плейлист" setShowPlaylists={setShowPlaylists}/>}
     </div>
   )
 }
