@@ -11,7 +11,7 @@ export default function PlaylistsList({ title, playlists, setShowPlaylists }) {
           return <PlaylistItem
             key={playlist.browseId}
             name={playlist.title}
-            image={playlist?.thumbnails[1]?.url || playlist?.thumbnails?.url}
+            image={playlist?.thumbnails[0]?.url || playlist?.thumbnails?.url}
             onClick={() => setShowPlaylists(false)}
           />
         })}
