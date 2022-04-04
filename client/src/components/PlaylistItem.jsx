@@ -1,7 +1,6 @@
-import React from 'react'
-import image from '../img/image 4.png'
+import React from 'react';
 
-export default function PlaylistItem({name, onClick}) {
+export default function PlaylistItem({name, onClick, image}) {
   return (
     <div className="playlist__item">
         <img src={image} alt="" className="playlist__img" onClick={onClick}/>
