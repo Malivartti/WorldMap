@@ -95,6 +95,8 @@
 }
 
 .playlist__img {
+    display: block;
+    margin: auto;
     width: 100%;
     object-fit: cover;
     width: 130px;
