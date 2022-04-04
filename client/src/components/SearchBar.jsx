@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { getSearch } from '../api/index';
+
 
 export function SearchBar() {
-  const [value, setValue] = useState('')
-  const handleSubmit = (e) => {
-    e.preventDefault()
-  }
+  const [value, setValue] = useState('');
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setValue('')
+  }
+  
   return (
     <form 
     className='searchBar'
