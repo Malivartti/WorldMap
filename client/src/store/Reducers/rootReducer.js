@@ -3,7 +3,13 @@ import { ACTIONS } from './../Actions/index';
 
 const defaultState = {
   country: { en: '', ru: '' },
-  track: [],
+  track: {
+    author: { name: 'Skillet', browseId: 'UCUHYrf3BF5yI9QdRw09__BA' },
+    duration: 197000,
+    name: "Hero ",
+    thumbnails: { url: 'https://i.ytimg.com/vi/uGcsIdGOuZY/sddefault.jpg?s…EGHgg6AJIWg&rs=AMzJL3nZov-xQZDIYnrLrHnjgeaDoaNeXw', width: 400, height: 225 },
+    videoId: "uGcsIdGOuZY",
+  },
   playlist: [],
   favoriteTracks: [],
   favoritePlaylists: []

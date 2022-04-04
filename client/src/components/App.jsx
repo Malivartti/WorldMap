@@ -20,6 +20,7 @@ function App() {
     dispatch(getRequestCountry(e.target.id))
   }
 
+
   return (
     <div className="App">
       {isFavorites && <Favorites />}
