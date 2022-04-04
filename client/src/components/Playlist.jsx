@@ -3,9 +3,9 @@ import PlaylistsList from './PlaylistsList'
 import PlaylistSongs from './PlaylistSongs'
 
 
-export default function PlaylistModal() {
+export default function PlaylistModal({ playlists }) {
   const [showPlaylists, setShowPlaylists] = useState(true);
-  const playlists = [{name: 'TItle'}, {name: 'Nmsmddjdj'}, {name: '3inbhgugig'}]
+  // const 
 
   return (
     <div className="playlists">
