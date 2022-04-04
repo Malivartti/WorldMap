@@ -11,9 +11,9 @@ import { getRequestCountry } from './../store/asuncActions/index';
 
 
 function App() {
-  const [isFavorites, setIsFavorites] = useState(false)
+  const [isFavorites, setIsFavorites] = useState(false);
   const [isSelected, setSelected] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   function handleClick(e) {
     setSelected(true)
