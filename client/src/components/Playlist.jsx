@@ -10,7 +10,7 @@ export default function PlaylistModal({ playlists }) {
     <div className="playlists">
       {showPlaylists 
       ? <PlaylistsList title={'Country'} playlists={playlists} setShowPlaylists={setShowPlaylists}/> 
-      : <PlaylistSongs playlistName="Вечерний плейлист"/>}
+      : <PlaylistSongs playlistName="Вечерний плейлист" setShowPlaylists={setShowPlaylists}/>}
     </div>
   )
 }

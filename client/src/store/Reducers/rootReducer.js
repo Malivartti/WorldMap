@@ -2,6 +2,7 @@ import { ACTIONS } from './../Actions/index';
 
 
 const defaultState = {
+  search: { value: '', isFormRequest: false},
   country: { en: '', ru: '' },
   track: [],
   playlist: [],
@@ -11,6 +12,8 @@ const defaultState = {
 
 export const rootReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case ACTIONS.SET_SEARCH_VALUE:
+      return {...state, searchValue: { value: action.payload.value, isFormRequest: action.payload.isFormRequest}}
     case ACTIONS.SET_COUNTRY:
       return { ...state, country: { en: action.payload.en, ru: action.payload.ru } }
     case ACTIONS.SET_TRACK:

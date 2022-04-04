@@ -8,10 +8,13 @@
     font-size: 20px;
     text-align: center;
     margin-bottom: 20px;
+    padding-left: 30px;
 }
 
+
 .App {
-    background-color: #8eb5ff;
+    background: linear-gradient(#b0cbff, #5892ff);
+    /* background-color: #8eb5ff; */
     height: 100vh;
 }
 
@@ -21,11 +24,12 @@
     width: 100%;
     display: flex;
     padding: 0 15px;
+    align-items: center;
 }
 
 .App__header-btn {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     border: none;
     cursor: pointer;
     z-index: 5;
@@ -38,6 +42,9 @@
 .App__header-btn_playlists {
     background: url(../img/playlists.svg);
 }
+.App__header-btn_return {
+    background: url(../img/return.svg);
+}
 
 .favorites {
     position: absolute;
@@ -45,7 +52,7 @@
     left: 0;
     width: 15%;
     height: 100%;
-    background-color: #8eb5ff;
+    background-color: #7a80ff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
     padding: 25px 10px;
     z-index: 2;
@@ -65,8 +72,8 @@
     top: 0;
     right: 0;
     height: 100%;
-    width: 30%;
-    background-color: #8eb5ff;
+    width: 25%;
+    background-color: #7a80ff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
     padding: 25px 10px;
     overflow: visible auto;
@@ -81,7 +88,7 @@
 }
 
 .playlist__item {
-    max-width: 230px;
+    max-width: 200px;
     background-color: #7a80ff;
     padding: 4px;
     margin-bottom: 20px;
@@ -90,7 +97,10 @@
 .playlist__img {
     width: 100%;
     object-fit: cover;
+    width: 130px;
+    height: 130px;
 }
+
 
 .playlist__item-title {
     text-align: center;
@@ -120,7 +130,7 @@
     background-color: #7a80ff;
     color: #000;
     font-size: 20px;
-    outline:none;
+    outline: none;
 }
 
 svg {
@@ -134,6 +144,6 @@ path {
 
 path:hover {
     fill: rgba(181, 59, 211, 0.79);
-    
+    outline: 0;
     cursor: pointer;
 }

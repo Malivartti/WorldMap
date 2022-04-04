@@ -17,6 +17,7 @@ function App() {
   const country = useSelector((state) => state.country.en);
   const dispatch = useDispatch()
 
+
   async function handleClick(e) {
     setSelected(true);
     dispatch(getRequestCountry(e.target.id)); 
