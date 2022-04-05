@@ -2,7 +2,6 @@ import React from 'react'
 import Song from './Song'
 
 
-
 export default function PlaylistSongs({playlistName, setShowPlaylists}) {
   return (
     <>

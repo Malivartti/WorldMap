@@ -11,15 +11,14 @@ export default function PlaylistModal() {
 
   const country = useSelector(getCountryName);
   const search = useSelector(getSearchValue);
-
   const countryName = search.isFormRequest ? search.value : country.en;
+  
 
   useEffect(() => {
-    function getSearchResult() {
-     getSearch(countryName).then(res => setPlaylists(res));
-   }
-   getSearchResult();
- }, [country, search])
+    if (countryName) {
+      getSearch(countryName).then(res => {setPlaylists(res)});
+    }
+ }, [countryName])
 
   return (
     <div className="playlists">
@@ -29,4 +28,3 @@ export default function PlaylistModal() {
     </div>
   )
 }
-
