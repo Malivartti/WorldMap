@@ -8,7 +8,7 @@ function AppHeader({ handle }) {
         className='App__header-btn App__header-btn_favorites'
         onClick={() => handle.setIsFavorites(!handle.isFavorites)}
       ></button>
-      <SearchBar />
+      <SearchBar openModal={() => handle.setSelected(true)}/>
       <button
         className='App__header-btn App__header-btn_playlists'
         onClick={() => handle.setSelected(!handle.isSelected)}

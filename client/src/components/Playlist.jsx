@@ -8,6 +8,7 @@ import { getSearch } from '../api';
 export default function PlaylistModal() {
   const [showPlaylists, setShowPlaylists] = useState(true);
   const [playlists, setPlaylists] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const country = useSelector(getCountryName);
   const search = useSelector(getSearchValue);
@@ -16,14 +17,18 @@ export default function PlaylistModal() {
 
   useEffect(() => {
     if (countryName) {
-      getSearch(countryName).then(res => {setPlaylists(res)});
+      setIsLoading(true)
+      getSearch(countryName).then(res => {
+        setIsLoading(false)
+        setPlaylists(res)
+      });
     }
  }, [countryName])
 
   return (
     <div className="playlists">
       {showPlaylists 
-      ? <PlaylistsList title={countryName} playlists={playlists} setShowPlaylists={setShowPlaylists}/> 
+      ? <PlaylistsList title={countryName} playlists={playlists} setShowPlaylists={setShowPlaylists} isLoading={isLoading}/> 
       : <PlaylistSongs playlistName="Вечерний плейлист" setShowPlaylists={setShowPlaylists}/>}
     </div>
   )

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../store/Actions';
 
-export function SearchBar() {
+export function SearchBar({openModal}) {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setSearchValue({value: value, isFormRequest: true}));
+    openModal()
     setValue('');
   }
   
