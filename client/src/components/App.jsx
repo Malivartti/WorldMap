@@ -21,6 +21,7 @@ function App() {
     dispatch(setSearchValue({value: '', isFormRequest: false}))
   }
 
+
   return (
     <div className="App">
       {isFavorites && <Favorites />}
