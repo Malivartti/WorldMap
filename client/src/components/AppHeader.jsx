@@ -1,7 +1,6 @@
 import React from 'react'
 import { SearchBar } from './SearchBar';
 
-
 function AppHeader({ handle }) {
   return (
     <div className='App__header'>

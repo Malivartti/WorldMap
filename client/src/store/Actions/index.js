@@ -1,4 +1,5 @@
 export const ACTIONS = {
+  SET_SEARCH_VALUE: 'SET_SEARCH_VALUE',
   SET_COUNTRY: 'SET_COUNTRY',
   SET_TRACK: 'SET_TRACK',
   SET_PLAYLIST: 'SET_PLAYLIST',
@@ -8,6 +9,7 @@ export const ACTIONS = {
   REMOVE_FAVORITE_PLAYLIST: 'REMOVE_FAVORITE_PLAYLIST',
 }
 
+export const setSearchValue = (payload) => ({type: ACTIONS.SET_SEARCH_VALUE, payload});
 export const setTrack = (payload) => ({type: ACTIONS.SET_TRACK, payload})
 export const setCounrty = (payload) => ({type: ACTIONS.SET_COUNTRY, payload})
 export const setPlaylist = (payload) => ({type: ACTIONS.SET_PLAYLIST, payload})

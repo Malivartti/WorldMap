@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { getSearch } from '../api/index';
-
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../store/Actions';
 
 export function SearchBar() {
   const [value, setValue] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setValue('')
+    dispatch(setSearchValue({value: value, isFormRequest: true}));
+    setValue('');
   }
   
   return (

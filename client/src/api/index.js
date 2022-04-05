@@ -5,7 +5,7 @@ export async function getSearch(search) {
     const response = await axios.post('http://localhost:3001/search', {
       search
     })
-    return response.data.playlists
+    return response.data.playlists;
   } catch (err) {
     return err
   }
