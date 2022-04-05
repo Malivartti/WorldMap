@@ -18,9 +18,9 @@ function App() {
   function handleClick(e) {
     setSelected(true);
     dispatch(getRequestCountry(e.target.id)); 
+    (console.log(e.target.id))
     dispatch(setSearchValue({value: '', isFormRequest: false}))
   }
-
 
   return (
     <div className="App">
