@@ -2,8 +2,8 @@ import { ACTIONS } from './../Actions/index';
 
 
 const defaultState = {
-  search: { value: '', isFormRequest: false},
-  country: { en: '', ru: '' },
+  search: { value: '', isFormRequest: false },
+  country: '',
   track: {
     author: { name: 'Skillet', browseId: 'UCUHYrf3BF5yI9QdRw09__BA' },
     duration: 197000,
@@ -19,9 +19,9 @@ const defaultState = {
 export const rootReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ACTIONS.SET_SEARCH_VALUE:
-      return {...state, search: { value: action.payload.value, isFormRequest: action.payload.isFormRequest}}
+      return { ...state, search: { value: action.payload.value, isFormRequest: action.payload.isFormRequest } }
     case ACTIONS.SET_COUNTRY:
-      return { ...state, country: { en: action.payload.en, ru: action.payload.ru } }
+      return { ...state, country: action.payload }
     case ACTIONS.SET_TRACK:
       return { ...state, track: action.payload }
     case ACTIONS.SET_PLAYLIST:

@@ -33,9 +33,8 @@ app.post('/playlist', (req, res) => {
 
 app.post('/country', (req, res) => {
   const countryId = req.body.countryId
-  const coundtryEn = countries.getName(countryId, "en", {select: "official"})
-  const coundtryRu = countries.getName(countryId, "ru", {select: "official"})
-  res.json({country: {en: coundtryEn, ru: coundtryRu}})
+  const country = countries.getName(countryId, "en", {select: "official"})
+  res.json({country})
 })
 
 app.listen(3001)

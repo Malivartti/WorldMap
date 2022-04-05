@@ -11,7 +11,7 @@ export default function PlaylistModal() {
 
   const country = useSelector(getCountryName);
   const search = useSelector(getSearchValue);
-  const countryName = search.isFormRequest ? search.value : country.en;
+  const countryName = search.isFormRequest ? search.value : country;
   
 
   useEffect(() => {
