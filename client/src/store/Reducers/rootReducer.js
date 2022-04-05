@@ -6,7 +6,7 @@ const defaultState = {
   track: {
     author: { name: 'Skillet', browseId: 'UCUHYrf3BF5yI9QdRw09__BA' },
     duration: 197000,
-    name: "Hero ",
+    name: "Hero",
     thumbnails: { url: 'https://i.ytimg.com/vi/uGcsIdGOuZY/sddefault.jpg?s…EGHgg6AJIWg&rs=AMzJL3nZov-xQZDIYnrLrHnjgeaDoaNeXw', width: 400, height: 225 },
     videoId: "uGcsIdGOuZY",
   },
@@ -28,9 +28,9 @@ export const rootReducer = (state = defaultState, action) => {
     case ACTIONS.ADD_FAVORITE_PLAYLIST:
       return { ...state, favoritePlaylists: [...state.favoritePlaylists, action.payload] }
     case ACTIONS.REMOVE_FAVORITE_TRACK:
-      return { ...state, favoriteTracks: state.favoriteTracks.filter(trackId => trackId !== action.payload) }
+      return { ...state, favoriteTracks: state.favoriteTracks.filter(track => track.videoId !== action.payload) }
     case ACTIONS.REMOVE_FAVORITE_PLAYLIST:
-      return { ...state, favoritePlaylists: state.favoritePlaylists.filter(playlistId => playlistId !== action.payload) }
+      return { ...state, favoritePlaylists: state.favoritePlaylists.filter(playlistId => playlistId.browseId !== action.payload) }
     default:
       return state
   }

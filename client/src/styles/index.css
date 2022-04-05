@@ -239,16 +239,13 @@
 
 /* ################################### MAP ###################################### */
 
-svg {
+.map {
     fill: #6c42c5;
     transition: opacity .4s ease;
 }
-/* 
-path {
-    opacity: .0;
-} */
 
-path:hover {
+
+.map path:hover {
     fill: rgba(181, 59, 211, 0.79);
     
     cursor: pointer;

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube';
 
 import treckPlaceholder from '../img/treckPlacefolder.jpg'
-import likeBtn from '../img/like.png'
+import { ReactComponent as LikeBtn } from '../img/like.svg'
 import videoBtn from '../img/video.png'
 import arrowRightBtn from '../img/arrow-right.png'
 import arrowLeftBtn from '../img/arrow-left.png'
 import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
 import { formatTime } from './../helper/index';
+import { removeFavoriteTrack } from '../store/Actions';
+import { addFavoriteTrack } from './../store/Actions/index';
 
 const opts = {
   height: '525',
@@ -23,11 +25,13 @@ const opts = {
 
 export default function TrackSlider() {
   const tracklData = useSelector(state => state.track)
+  const isFavorite = useSelector(state => state.favoriteTracks.some((treck) => treck.videoId === tracklData.videoId))
   const [player, setPlayer] = useState(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(50)
   const [isPlay, setIsPlay] = useState(true)
   const [isShow, setIsShow] = useState(false)
+  const dipatch = useDispatch()
 
 
   useEffect(() => {
@@ -55,6 +59,11 @@ export default function TrackSlider() {
     setVolume(e.target.value)
   }
 
+  function manageFavorite() {
+    if (isFavorite) dipatch(removeFavoriteTrack(tracklData.videoId))
+    else dipatch(addFavoriteTrack(tracklData))
+  }
+
 
   return (
     <>
@@ -73,7 +82,7 @@ export default function TrackSlider() {
             <h3 className='track-slider__info-title'>{tracklData.name}</h3>
             <span className='track-slider__info-auth'>{tracklData.author.name}</span>
           </div>
-          <button className='track-slider__info-btn'><img src={likeBtn} alt='' /></button>
+          <button className='track-slider__info-btn' onClick={manageFavorite}><LikeBtn fill={isFavorite ? 'red' : 'black'} /></button>
           <button className='track-slider__info-btn' onClick={() => setIsShow(!isShow)}><img src={videoBtn} alt='' /></button>
         </div>
         <div className='track-slider__control'>
