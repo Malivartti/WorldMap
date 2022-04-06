@@ -70,12 +70,7 @@
 }
 
 .main {
-    height: 97vh;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-between;
-    padding: 50px 0;
+    padding: 70px 0;
 }
 
 /* ################################### PLAYLIST ###################################### */
@@ -259,8 +254,24 @@
 
 /* ################################### MAP ###################################### */
 
+.tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--second-color);
+    padding: 3px;
+    font-size: 20px;
+}
+
 .map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map svg {
     fill: var(--map-color); 
+    height: 85vh;
 }
 
 .map path {
