@@ -12,14 +12,16 @@ export default function PlaylistsList({ title, playlists, setShowPlaylists, isLo
           ? <div className='lds-ring'>
             <div></div>
           </div>
-          : playlists.map((playlist) => {
-            return <PlaylistItem
-              key={playlist.browseId}
-              name={playlist.title}
-              image={playlist?.thumbnails[0]?.url || playlistPlaceholder}
-              onClick={() => setShowPlaylists(false)}
-            />
-          })
+          : (!playlists.length)
+            ? <h3>Not found</h3>
+            : playlists.map((playlist) =>
+              <PlaylistItem
+                key={playlist.browseId}
+                name={playlist.title}
+                image={playlist?.thumbnails[0]?.url || playlistPlaceholder}
+                onClick={() => setShowPlaylists(false)}
+              />
+            )
         }
       </div>
     </>

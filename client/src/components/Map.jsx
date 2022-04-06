@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import world from '@svg-maps/world'
 import { SVGMap } from 'react-svg-map'
 import { getCountry } from '../api';
@@ -12,21 +12,13 @@ function Map({ setSelected }) {
   const [focusCountryName, setFocusCountryName] = useState('')
   const [cursorPosition, setCursorPosition] = useState({ top: 0, left: 0 })
   const onMouseMove = e => setCursorPosition({ top: e.screenY, left: e.screenX });
-  const isFormRequest = useSelector(state => state.search.isFormRequest)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (isFormRequest && selectedCountry) {
-      selectedCountry.style.fill = null
-      setSelectedCountry(null)
-    }
-  }, [isFormRequest, selectedCountry])
 
 
   function handleClick(e) {
     setSelected(true);
-    dispatch(getRequestCountry(e.target.id));
     dispatch(setSearchValue({ value: '', isFormRequest: false }))
+    dispatch(getRequestCountry(e.target.id));
   }
 
   function onFocus(id) {
