@@ -1,28 +1,34 @@
 .song {
-    flex: 100%;
     padding: 4px;
     background-color: var(--main-color);
     margin: 10px;
     display: flex;
     align-items: center;
+    width: 98%;
 }
 
-.song-img {
+.song__img {
+    margin: 3px 5px;
     width: 120px;
 }
 
-
-.song-info {
+.song__info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    flex-basis: 50%;
 }
 
-.heart {
+.song__btn-favorites {
     margin-right: 0;
     margin-left: auto;
 }
 
-.song-name {
-    font-size: 30px;
+.song__name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.song__control-play {
+    margin-right: 8px;
 }

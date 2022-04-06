@@ -192,7 +192,8 @@
     display: flex;
 }
 
-.track-slider__control-play {
+.track-slider__control-play,
+.song__control-play {
     width: 40px;
     height: 40px;
     border-radius: 50%;

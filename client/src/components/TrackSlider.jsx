@@ -45,7 +45,7 @@ export default function TrackSlider() {
 
   function onReady(e) {
     setPlayer(e.target)
-    e.target.playVideo();
+    // e.target.playVideo();
   }
 
   function handleClick() {

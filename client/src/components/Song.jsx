@@ -1,23 +1,21 @@
 import React from 'react'
-import image from '../img/image 1.png'
+import playBtn from '../img/play.svg'
 import '../styles/song.css'
 
 
-export default function Song() {
+export default function Song({ image, name, author, duration }) {
   return (
     <div className="song">
-        <img src={image} alt="" className="song-img"/>
-        <div className="song-info">
-            <div className="song-name">Hero</div>
-            <div className="artist">Skillet</div>
+        <img className="song__img" src={image} alt="" />
+        <div className="song__info">
+            <div className="song__name">{name}</div>
+            <div className="song__author">{author}</div>
         </div>
-        <span className="material-icons outlined heart">
+        <span className="song__btn-favorites material-icons outlined">
             favorite_border
-        </span>
-        <div>3:00</div>
-        <span className="material-icons outlined">
-            play_circle
-        </span>
+        </span>  
+        <div className="song__duration">{ duration }</div>
+        <button className='song__control-play btn-reset'><img src={playBtn} alt=''/></button>
     </div>
   )
 }
