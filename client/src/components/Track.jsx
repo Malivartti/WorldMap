@@ -3,7 +3,7 @@ import playBtn from '../img/play.svg'
 import '../styles/song.css'
 
 
-export default function Song({ image, name, author, duration }) {
+export default function Track({ image, name, author, duration, handleClick }) {
   return (
     <div className="song">
         <img className="song__img" src={image} alt="" />
@@ -15,7 +15,9 @@ export default function Song({ image, name, author, duration }) {
             favorite_border
         </span>  
         <div className="song__duration">{ duration }</div>
-        <button className='song__control-play btn-reset'><img src={playBtn} alt=''/></button>
+        <button className='song__control-play btn-reset' onClick={handleClick}>
+          <img src={playBtn} alt=''/>
+        </button>
     </div>
   )
 }

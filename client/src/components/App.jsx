@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TrackSlider from './TrackSlider';
 import Favorites from './Favorites';
-import PlaylistModal from './Playlist';
+import PlaylistModal from './PlaylistModal';
 import AppHeader from './AppHeader';
 import Map from './Map';
 
