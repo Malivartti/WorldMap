@@ -33,7 +33,6 @@ export default function TrackSlider() {
   const [isShow, setIsShow] = useState(false)
   const dipatch = useDispatch()
 
-
   useEffect(() => {
     if (player) {
       const timerId = setInterval(
@@ -45,7 +44,8 @@ export default function TrackSlider() {
 
   function onReady(e) {
     setPlayer(e.target)
-    // e.target.playVideo();
+    e.target.playVideo();
+    setIsPlay(true)
   }
 
   function handleClick() {
@@ -64,7 +64,7 @@ export default function TrackSlider() {
     else dipatch(addFavoriteTrack(tracklData))
   }
 
-
+  if (!Object.keys(tracklData).length) return null
   return (
     <>
       <div className={`track-slider__video ${isShow ? 'visible' : ''}`}>

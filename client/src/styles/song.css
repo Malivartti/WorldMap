@@ -1,10 +1,13 @@
 .song {
     padding: 4px;
-    background-color: var(--main-color);
-    margin: 10px;
+    background-color: var(--second-color);
     display: flex;
     align-items: center;
-    width: 98%;
+    width: 100%;
+}
+
+.song:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 .song__img {

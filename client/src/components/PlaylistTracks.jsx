@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
 import { getPlaylistData } from '../store/selectors';
-import { formatTime, formatMillisecondsToSeconds } from '../helper';
 import { setPlaylist } from '../store/Actions';
+import { getPlaylist } from '../api'
+import { setTrack } from './../store/Actions/index';
 
-export default function PlaylistTracks({setShowPlaylists, playlist }) {
+
+export default function PlaylistTracks({ playlistId, setShowPlaylists }) {
+  const [currentPlaylist, setCurrentPlaylist] = useState({})
+  const [isLoading, setIsLoading] = useState(false);
   const storePlaylist = useSelector(getPlaylistData)
   const dispatch = useDispatch();
 
-  function handleClick() {
-    if (playlist !== storePlaylist) dispatch(setPlaylist(playlist))
+  function handleClick(track) {
+    if (currentPlaylist !== storePlaylist) dispatch(setPlaylist(currentPlaylist))
+    dispatch(setTrack(track))
   }
+
+  useEffect(() => {
+    setCurrentPlaylist({})
+    setIsLoading(true)
+    getPlaylist(playlistId)
+      .then(res => {
+        setIsLoading(false)
+        setCurrentPlaylist(res)
+      })
+      .catch(console.log)
+  }, [playlistId])
 
   return (
     <>
@@ -20,18 +36,26 @@ export default function PlaylistTracks({setShowPlaylists, playlist }) {
         className='App__header-btn App__header-btn_return'
         onClick={() => setShowPlaylists(true)}
       ></button>
-      <PlaylistHeader playlist={playlist}/>
-      {playlist?.content?.map((track, index) => {
-          return <Track 
-            key={index}
-            image={track.thumbnails.url || track.thumbnails[0].url}
-            name={track.name}
-            author={track.author.name}
-            duration={formatTime(formatMillisecondsToSeconds(track.duration))}
-            handleClick={handleClick}
-          />
-        })
-      }
+      <div className='playlist__tracks'>
+        {isLoading
+          ? <div className='lds-ring'>
+            <div></div>
+          </div>
+          : (!Object.keys(currentPlaylist).length)
+            ? <h3>Not found</h3>
+            : <>
+              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick}/>
+              {currentPlaylist?.content?.map((track, index) => {
+                return <Track
+                  key={index}
+                  trackData={track}
+                  handleClick={handleClick}
+                />
+              })
+              }
+            </>
+        }
+      </div>
     </>
   )
 }

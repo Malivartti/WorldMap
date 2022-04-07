@@ -10,6 +10,7 @@ export function formatMillisecondsToSeconds(milliseconds) {
   return Math.round(milliseconds / 1000);
 }
 
-export function getImageUrl(item){
-  return item?.thumbnails?.url || item?.thumbnails?.[0].url
+export function getImageUrl(item) {
+   return item?.thumbnails[0]?.url || item?.thumbnails?.url
+
 }

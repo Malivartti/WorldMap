@@ -1,8 +1,8 @@
 import React from 'react'
-import { getImageUrl } from '../helper'
 import playBtn from '../img/play.svg'
+import { getImageUrl } from './../helper/index';
 
-export default function PlaylistHeader({playlist}) {
+export default function PlaylistHeader({playlist, handleClick}) {
   return (
     <div className="playlist__card">
         <img className="playlist__card-img" src={getImageUrl(playlist)} alt=""/>
@@ -10,7 +10,7 @@ export default function PlaylistHeader({playlist}) {
           <div className="playlist">
             <h2 className="playlist__card-title">{playlist.title}</h2>
             <div className="playlist__card-btns"> 
-              <button className='song__control-play btn-reset'>
+              <button className='song__control-play btn-reset' onClick={() => handleClick(playlist?.content[0])}>
                 <img src={playBtn} alt=''/>
               </button>
               <span className="playlist__btn-favorites material-icons outlined">
@@ -19,7 +19,7 @@ export default function PlaylistHeader({playlist}) {
             </div>
           </div>
           <div className="playlist__card-info">
-            {playlist.owner} * {playlist.dateYear} * {playlist.trackCount} 
+            {playlist.owner} | {playlist.dateYear} | {playlist.trackCount} 
           </div>
         </div>
     </div>
