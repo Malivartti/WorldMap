@@ -16,6 +16,7 @@ export async function getPlaylist(browseId) {
     const response = await axios.post('http://localhost:3001/playlist', {
       browseId
     })
+    console.log(response.data.tracks)
     return response.data.tracks
   } catch (err) {
     return err
