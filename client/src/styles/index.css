@@ -113,6 +113,35 @@
     overflow-wrap: break-word;
     margin-top: auto;
 }
+
+.playlist__card {
+    width: 98%;
+    display: flex;
+    margin: 10px;
+}
+
+.playlist__card-img {
+    width: 180px;
+}
+
+.playlist__card-main {
+    margin: 7px;
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.playlist__card-main .playlist {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.playlist__btn-favorites {
+    font-size: 40px;
+}
+
 /* ################################### TRACK-SLIDER ###################################### */
 
 .track-slider {

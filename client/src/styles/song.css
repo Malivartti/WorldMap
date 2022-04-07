@@ -31,4 +31,5 @@
 
 .song__control-play {
     margin-right: 8px;
+    flex-shrink: 0;
 }

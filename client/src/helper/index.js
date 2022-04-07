@@ -5,3 +5,11 @@ export function formatTime(seconds) {
   seconds = seconds < 10 ? '0' + seconds : seconds;
   return `${minutes}:${seconds}`;
 }
+
+export function formatMillisecondsToSeconds(milliseconds) {
+  return Math.round(milliseconds / 1000);
+}
+
+export function getImageUrl(item){
+  return item?.thumbnails?.url || item?.thumbnails?.[0].url
+}
