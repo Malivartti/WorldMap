@@ -11,7 +11,7 @@ function Map({ setSelected }) {
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [focusCountryName, setFocusCountryName] = useState('')
   const [cursorPosition, setCursorPosition] = useState({ top: 0, left: 0 })
-  // const onMouseMove = e => setCursorPosition({ top: e.screenY, left: e.screenX });
+  const onMouseMove = e => setCursorPosition({ top: e.screenY, left: e.screenX });
   const dispatch = useDispatch()
 
 
@@ -32,13 +32,13 @@ function Map({ setSelected }) {
     item.style.fill = '#163a0b'
     setSelectedCountry(item)
   }
-// onMouseMove={onMouseMove}
+
   return (
-    <div className='map' >
+    <div className='map' onMouseMove={onMouseMove}>
       {focusCountryName &&
         <div
           className='tooltip'
-          style={{ top: cursorPosition.top - 110, left: cursorPosition.left }}
+          style={{ top: cursorPosition.top - 140, left: cursorPosition.left - 30 }}
         >{focusCountryName}
         </div>
       }
@@ -47,7 +47,8 @@ function Map({ setSelected }) {
         onLocationClick={handleClick}
         onLocationMouseOver={(e) => onFocus(e.target.id)}
         onLocationMouseOut={() => setFocusCountryName('')}
-        onLocationFocus={e => selectCountry(e.target)} />
+        onLocationFocus={e => selectCountry(e.target)} 
+        />
     </div>
   )
 }

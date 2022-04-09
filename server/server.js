@@ -25,7 +25,6 @@ app.post('/search', (req, res) => {
 app.post('/playlist', (req, res) => {
   try {
     const browseId = req.body.browseId
-    console.log(browseId + '!!')
     api.initalize()
       .then(() => {
         api.getPlaylist(browseId).then(data => {
