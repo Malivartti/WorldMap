@@ -26,7 +26,7 @@ export default function PlaylistModal() {
   }, [countryName])
 
   return (
-    <div className="playlists">
+    <div className={`playlists ${showPlaylists ? '' : 'playlists_tracks'}`} onClick={e => e.stopPropagation()}>
       {showPlaylists
         ? <Playlists
           playlists={playlists}
@@ -36,6 +36,7 @@ export default function PlaylistModal() {
           setPlaylistId={setPlaylistId} />
         : <PlaylistTracks
           playlistId={playlistId}
+          showPlaylists={() => setShowPlaylists(true)}
         />}
     </div>
   )
