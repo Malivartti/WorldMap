@@ -83,9 +83,10 @@ export default function TrackSlider() {
   }
 
   function handleError() {
-    setError(`Track ${playlist[getIndexTrack()].name} not available`)
+    const index = getIndexTrack()
+    setError(`Track ${playlist[index].name} not available`)
     setTimeout(() => setError(''), 3000)
-    setTrackOnPlaylist(getIndexTrack() + 1)
+    if (index < playlist.length) setTrackOnPlaylist(getIndexTrack() + 1)
   }
 
   if (!Object.keys(tracklData).length) return null
