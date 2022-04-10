@@ -5,8 +5,8 @@ import YouTube from 'react-youtube';
 import treckPlaceholder from '../img/treckPlacefolder.jpg'
 import { ReactComponent as LikeBtn } from '../img/like.svg'
 import videoBtn from '../img/video.png'
-import arrowRightBtn from '../img/arrow-right.png'
-import arrowLeftBtn from '../img/arrow-left.png'
+import arrowRightBtn from '../img/arrow-right.svg'
+import arrowLeftBtn from '../img/arrow-left.svg'
 import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
 import { formatTime } from './../helper/index';
