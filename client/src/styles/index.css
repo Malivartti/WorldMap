@@ -228,6 +228,10 @@
     opacity: .7;
 }
 
+.track-slider__info-btns {
+    margin-left: auto;
+}
+
 .track-slider__info-btn {
     background: transparent;
     border: 0;
@@ -254,22 +258,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* position: absolute; */
     top: 50%;
     left: 50%;
 }
 
-.track-slider__control-play {
-/* .song__control-play { */
-    width: 30px;
-    height: 30px;
+.track-slider__control-play img {
+    width: 40px;
+    height: 40px;
     object-fit: cover;
-    margin: 0 35px;
+    margin: 0 20px;
 }
 
 .track-slider__control-arrow img {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
 }
 
@@ -304,7 +306,7 @@
 .searchBar {
     width: 50%;
     margin: 0 auto;
-    z-index: 5;
+    z-index: 2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 
 }

@@ -4,13 +4,13 @@ import YouTube from 'react-youtube';
 import { ReactComponent as LikeBtn } from '../img/like.svg'
 import arrowRightBtn from '../img/arrow-right.svg'
 import arrowLeftBtn from '../img/arrow-left.svg'
-import {ReactComponent as VidoBtn} from '../img/open-video.svg'
-import {ReactComponent as RepeatBtn} from '../img/playback-repeat_1.svg'
+import { ReactComponent as VidoBtn } from '../img/open-video.svg'
+import { ReactComponent as RepeatBtn } from '../img/playback-repeat_1.svg'
 import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
 import { formatTime, getImageUrl } from './../helper/index';
-import { removeFavoriteTrack, setTrack } from '../store/Actions';
-import { addFavoriteTrack } from './../store/Actions/index';
+import { removeFavoriteTrack, setTrack, addFavoriteTrack } from '../store/Actions';
+
 
 
 const opts = {
@@ -95,9 +95,11 @@ export default function TrackSlider() {
             <h3 className='track-slider__info-title'>{tracklData.name}</h3>
             <span className='track-slider__info-auth'>{tracklData.author.name}</span>
           </div>
-          <button className='track-slider__info-btn' onClick={() => setIsShow(!isShow)}><VidoBtn fill={isShow ? '#459bfd' : ''}/></button>
-          <button className='track-slider__info-btn' onClick={manageFavorite}><LikeBtn fill={isFavorite ? 'red' : 'black'} /></button>
-          <button className='track-slider__info-btn' onClick={() => setIsRepeat(!isRepeat)}><RepeatBtn fill={isRepeat ? '#459bfd' : ''} /></button>
+          <div className='track-slider__info-btns'>
+            <button className='track-slider__info-btn' onClick={() => setIsShow(!isShow)}><VidoBtn fill={isShow ? '#0075ff' : ''} /></button>
+            <button className='track-slider__info-btn' onClick={manageFavorite}><LikeBtn fill={isFavorite ? 'red' : 'black'} /></button>
+            <button className='track-slider__info-btn' onClick={() => setIsRepeat(!isRepeat)}><RepeatBtn fill={isRepeat ? '#0075ff' : ''} /></button>
+          </div>
         </div>
         <div className='track-slider__control'>
           <div className='track-slider__control-btns'>

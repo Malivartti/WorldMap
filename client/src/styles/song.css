@@ -22,8 +22,13 @@
     flex-basis: 50%;
 }
 
+.song__duration {
+    margin-right: 10px;
+}
+
 .song__btn-favorites {
-    margin-right: 0;
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
     margin-left: auto;
 }
@@ -38,7 +43,8 @@
     flex-shrink: 0;
 }
 
-.playlist__card-play {
+.playlist__card-play img {
     width: 50px;
     height: 50px;
+    margin-right: 10px;
 }
