@@ -24,6 +24,7 @@
 
 .song__btn-favorites {
     margin-right: 0;
+    margin-right: 10px;
     margin-left: auto;
 }
 
@@ -35,4 +36,9 @@
 .song__control-play {
     margin-right: 8px;
     flex-shrink: 0;
+}
+
+.playlist__card-play {
+    width: 50px;
+    height: 50px;
 }

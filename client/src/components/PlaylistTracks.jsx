@@ -8,7 +8,8 @@ import { getPlaylist } from '../api'
 import { setTrack } from './../store/Actions/index';
 
 
-export default function PlaylistTracks({ playlistId, setShowPlaylists }) {
+
+export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) {
   const [currentPlaylist, setCurrentPlaylist] = useState({})
   const [isLoading, setIsLoading] = useState(false);
   const storePlaylist = useSelector(getPlaylistData)
@@ -20,21 +21,25 @@ export default function PlaylistTracks({ playlistId, setShowPlaylists }) {
   }
 
   useEffect(() => {
-    setCurrentPlaylist({})
-    setIsLoading(true)
-    getPlaylist(playlistId)
-      .then(res => {
-        setIsLoading(false)
-        setCurrentPlaylist(res)
-      })
-      .catch(console.log)
-  }, [playlistId])
+    if (!playlist) {
+      setCurrentPlaylist({})
+      setIsLoading(true)
+      getPlaylist(playlistId)
+        .then(res => {
+          setIsLoading(false)
+          setCurrentPlaylist(res)
+        })
+        .catch(console.log)
+    } else {
+      setCurrentPlaylist(playlist)
+    }
+  }, [playlist, playlistId])
 
   return (
     <>
       <button
         className='App__header-btn App__header-btn_return'
-        onClick={() => setShowPlaylists(true)}
+        onClick={showPlaylists}
       ></button>
       <div className='playlist__tracks'>
         {isLoading
@@ -44,7 +49,7 @@ export default function PlaylistTracks({ playlistId, setShowPlaylists }) {
           : (!Object.keys(currentPlaylist).length)
             ? <h3>Not found</h3>
             : <>
-              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick}/>
+              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick} playlistId={playlistId} />
               {currentPlaylist?.content?.map((track, index) => {
                 return <Track
                   key={index}
