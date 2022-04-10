@@ -6,12 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addFavoritePlaylist, removeFavoritePlaylist } from './../store/Actions/index';
 
 export default function PlaylistHeader({playlist, playlistId, handleClick}) {
-  const isFavorite = useSelector(state => state.favoritePlaylists.some((fplaylist) => fplaylist === playlistId))
+  const isFavorite = useSelector(state => state.favoritePlaylists.some((fplaylist) => fplaylist.browseId === playlistId))
   const dispatch = useDispatch()
 
   function manageFavorite() {
     if (isFavorite) dispatch(removeFavoritePlaylist(playlistId))
-    else dispatch(addFavoritePlaylist(playlistId))
+    else dispatch(addFavoritePlaylist({browseId: playlistId, thumbnails: playlist.thumbnails, title: playlist.title}))
   }
 
   return (

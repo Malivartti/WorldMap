@@ -12,6 +12,9 @@ export function formatMillisecondsToSeconds(milliseconds) {
 }
 
 export function getImageUrl(item) {
-   return item?.thumbnails[0]?.url || item?.thumbnails?.url
-
+  try {
+    return item?.thumbnails[0]?.url || item?.thumbnails?.url
+  } catch(err) {
+    throw new Error(err)
+  }
 }

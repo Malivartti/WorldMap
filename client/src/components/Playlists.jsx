@@ -2,10 +2,11 @@ import PlaylistItem from './PlaylistItem'
 import { getImageUrl } from './../helper/index';
 
 
-export default function Playlists({ playlists, title, isLoading, setShowPlaylists, setPlaylistId }) {
+export default function Playlists({ playlists, title, isLoading, setShowPlaylists, setPlaylistId, setPlaylist }) {
   function getPlaylistTracks(id) {
     setShowPlaylists(false);
     setPlaylistId(id)
+    setPlaylist(null)
   }
 
   return (

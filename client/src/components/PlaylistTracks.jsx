@@ -8,7 +8,8 @@ import { getPlaylist } from '../api'
 import { setTrack } from './../store/Actions/index';
 
 
-export default function PlaylistTracks({ playlistId, showPlaylists }) {
+
+export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) {
   const [currentPlaylist, setCurrentPlaylist] = useState({})
   const [isLoading, setIsLoading] = useState(false);
   const storePlaylist = useSelector(getPlaylistData)
@@ -20,15 +21,19 @@ export default function PlaylistTracks({ playlistId, showPlaylists }) {
   }
 
   useEffect(() => {
-    setCurrentPlaylist({})
-    setIsLoading(true)
-    getPlaylist(playlistId)
-      .then(res => {
-        setIsLoading(false)
-        setCurrentPlaylist(res)
-      })
-      .catch(console.log)
-  }, [playlistId])
+    if (!playlist) {
+      setCurrentPlaylist({})
+      setIsLoading(true)
+      getPlaylist(playlistId)
+        .then(res => {
+          setIsLoading(false)
+          setCurrentPlaylist(res)
+        })
+        .catch(console.log)
+    } else {
+      setCurrentPlaylist(playlist)
+    }
+  }, [playlist, playlistId])
 
   return (
     <>
@@ -44,7 +49,7 @@ export default function PlaylistTracks({ playlistId, showPlaylists }) {
           : (!Object.keys(currentPlaylist).length)
             ? <h3>Not found</h3>
             : <>
-              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick} playlistId={playlistId}/>
+              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick} playlistId={playlistId} />
               {currentPlaylist?.content?.map((track, index) => {
                 return <Track
                   key={index}

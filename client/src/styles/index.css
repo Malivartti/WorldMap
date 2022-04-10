@@ -65,8 +65,13 @@
     height: 100%;
     background-color: var(--main-color);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    overflow: visible auto;
     padding: 25px 40px;
     z-index: 2;
+}
+
+.favorites img {
+    margin-bottom: 20px;
 }
 
 .main {
