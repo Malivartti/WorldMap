@@ -230,6 +230,7 @@
 
 .track-slider__info-btns {
     margin-left: auto;
+    display: flex;
 }
 
 .track-slider__info-btn {

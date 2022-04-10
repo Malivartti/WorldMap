@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react'
-import image from '../img/image 3.png';
+import image from '../img/MyPlaylist.jpg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFavoritePlaylist, getFavoriteTracks } from '../store/selectors';
 import Playlists from './Playlists';
