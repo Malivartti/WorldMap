@@ -29,7 +29,7 @@ function Map({ setSelected }) {
     if (selectedCountry) {
       selectedCountry.style.fill = null
     }
-    item.style.fill = '#163a0b'
+    item.style.fill = '#81be4d'
     setSelectedCountry(item)
   }
 

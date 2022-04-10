@@ -6,9 +6,9 @@
 
 :root {
     --main-color: #f8dac98c;
-    --second-color: #bd9b4e94;
-    --track-slider-color: #f8dac9;
-    --map-color: #446e40;
+    --second-color: #dde0eb;
+    --track-slider-color: #e9dddd;
+    --map-color: #286768;
     --interface-color: #000;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .App {
-    background: linear-gradient(#b0cbff, #5892ff);
+    background: linear-gradient(#b8ccea, #e9dddd,#74aced);
     height: 100vh;
 }
 
@@ -181,6 +181,7 @@
     display: flex;
     padding: 10px;
     z-index: 5;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
 .track-slider__video {
@@ -223,7 +224,7 @@
 }
 
 .track-slider__info-auth {
-    font-size: 16px;
+    font-size: 14px;
     opacity: .7;
 }
 
@@ -251,20 +252,24 @@
 
 .track-slider__control-btns {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: absolute; */
+    top: 50%;
+    left: 50%;
 }
 
-.track-slider__control-play,
-.song__control-play {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #459bfd;
-    margin: 0 20px;
+.track-slider__control-play {
+/* .song__control-play { */
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin: 0 35px;
 }
 
 .track-slider__control-arrow img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     object-fit: cover;
 }
 
@@ -299,7 +304,9 @@
 .searchBar {
     width: 50%;
     margin: 0 auto;
-    z-index: 1;
+    z-index: 5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
 }
 
 .searchBar__input {

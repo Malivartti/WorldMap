@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube';
 import { ReactComponent as LikeBtn } from '../img/like.svg'
+import arrowRightBtn from '../img/arrow-right.svg'
+import arrowLeftBtn from '../img/arrow-left.svg'
 import {ReactComponent as VidoBtn} from '../img/open-video.svg'
 import {ReactComponent as RepeatBtn} from '../img/playback-repeat_1.svg'
-import arrowRightBtn from '../img/arrow-right.png'
-import arrowLeftBtn from '../img/arrow-left.png'
 import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
 import { formatTime, getImageUrl } from './../helper/index';
