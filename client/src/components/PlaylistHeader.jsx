@@ -26,12 +26,12 @@ export default function PlaylistHeader({playlist, playlistId, handleClick}) {
             
           </div>
           <div className="playlist__card-btns"> 
-              <button className='playlist__card-play song__control-play btn-reset' onClick={() => handleClick(playlist?.content[0])}>
-                <img src={playBtn} alt=''/>
-              </button>
               <button className="playlist__btn-favorites  btn-reset" onClick={manageFavorite}>
                 <FavoriteBtn fill={isFavorite ? 'red' : 'black'} />
               </button>  
+              <button className='playlist__card-play song__control-play btn-reset' onClick={() => handleClick(playlist?.content[0])}>
+                <img src={playBtn} alt=''/>
+              </button>
             </div>
         </div>
     </div>
