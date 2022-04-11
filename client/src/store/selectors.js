@@ -7,3 +7,4 @@ export const getFavoriteTracks = (state) => (state.favoriteTracks);
 export const getTrack = (state) => (state.track);
 export const getPlaylistContent = (state) => (state.playlist.content);
 export const getIsPlaying = (state) => (state.isPlaying)
+export const getBlockedPlaylist = (state) => (state.blockedPlaylists)
