@@ -6,7 +6,7 @@ import { getPlaylistData } from '../store/selectors';
 import { setPlaylist } from '../store/Actions';
 import { getPlaylist } from '../api'
 import { setTrack } from './../store/Actions/index';
-
+import { blockPlaylist } from '../store/Actions';
 
 
 export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) {
@@ -20,16 +20,23 @@ export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) 
     dispatch(setTrack(track))
   }
 
+  function addBlockPlaylist(id) {
+    showPlaylists()
+    dispatch(blockPlaylist(id))
+  }
+
   useEffect(() => {
     if (!playlist) {
+      const timerId = setTimeout(() => addBlockPlaylist(playlistId), 5000)
       setCurrentPlaylist({})
       setIsLoading(true)
       getPlaylist(playlistId)
         .then(res => {
+          clearTimeout(timerId)
           setIsLoading(false)
           setCurrentPlaylist(res)
         })
-        .catch(console.log)
+        .catch(() => console.log(22))
     } else {
       setCurrentPlaylist(playlist)
     }

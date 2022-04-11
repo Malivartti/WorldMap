@@ -9,6 +9,7 @@ export const ACTIONS = {
   ADD_FAVORITE_PLAYLIST: 'ADD_FAVORITE_PLAYLIST',
   REMOVE_FAVORITE_TRACK: 'REMOVE_FAVORITE_TRACK',
   REMOVE_FAVORITE_PLAYLIST: 'REMOVE_FAVORITE_PLAYLIST',
+  BLOCK_PLAYLIST: 'BLOCK_PLAYLIST'
 }
 
 export const setSearchValue = (payload) => ({type: ACTIONS.SET_SEARCH_VALUE, payload});
@@ -21,3 +22,4 @@ export const addFavoritePlaylist = (payload) => ({type: ACTIONS.ADD_FAVORITE_PLA
 export const removeFavoriteTrack = (payload) => ({type: ACTIONS.REMOVE_FAVORITE_TRACK, payload})
 export const removeFavoritePlaylist = (payload) => ({type: ACTIONS.REMOVE_FAVORITE_PLAYLIST, payload})
 export const setIsPlaying = (payload) => ({type: ACTIONS.SET_IS_PLAYING, payload})
+export const blockPlaylist = (payload) => ({type: ACTIONS.BLOCK_PLAYLIST, payload})
