@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube';
 import { ReactComponent as LikeBtn } from '../img/like.svg'
@@ -24,7 +24,7 @@ const opts = {
   }
 }
 
-export default function TrackSlider() {
+export default function TrackSlider({ setError }) {
   const trackData = useSelector(getTrack);
   const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
   const playlist = useSelector(getPlaylistContent);
@@ -36,7 +36,6 @@ export default function TrackSlider() {
   const [isRepeat, setIsRepeat] = useState(false)
   const country = useCountryName(trackData)
   const dispatch = useDispatch()
-  const [error, setError] = useState('')
 
   
   useEffect(() => {
@@ -86,9 +85,9 @@ export default function TrackSlider() {
 
   function handleError() {
     const index = getIndexTrack()
-    setError(`Track ${playlist[index].name} not available`)
+    setError(`Track ${playlist[index].name} is not available`)
     setTimeout(() => setError(''), 3000)
-    if (index < playlist.length) setTrackOnPlaylist(getIndexTrack() + 1)
+    if (index < playlist.length) setTrackOnPlaylist(index + 1)
   }
 
   if (!Object.keys(trackData).length) return null
@@ -103,8 +102,6 @@ export default function TrackSlider() {
           onError={handleError}
         />
       </div>
-
-      <h2 className={`track-slider__modal ${error ? 'visible' : ''}`}>{error}</h2>
 
       <div className="track-slider">
         <div className='track-slider__info'>
