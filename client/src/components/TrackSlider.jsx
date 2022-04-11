@@ -12,6 +12,7 @@ import { formatTime, getImageUrl, isFavorite } from './../helper/index';
 import { removeFavoriteTrack, setTrack, addFavoriteTrack } from '../store/Actions';
 import { setIsPlaying } from './../store/Actions/index';
 import { getTrack, getPlaylistContent, getFavoriteTracks } from '../store/selectors';
+import { useCountryName } from './customHooks/useCountryName';
 
 const opts = {
   height: '525',
@@ -25,20 +26,19 @@ const opts = {
 
 export default function TrackSlider() {
   const trackData = useSelector(getTrack);
-  const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId')
-  // const isFavorite = useSelector(state => state.favoriteTracks.some((treck) => treck.videoId === trackData.videoId))
+  const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
   const playlist = useSelector(getPlaylistContent);
-
   const [player, setPlayer] = useState(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(50)
   const [isPlay, setIsPlay] = useState(true)
   const [isShow, setIsShow] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
-
+  const country = useCountryName(trackData)
   const dispatch = useDispatch()
   const [error, setError] = useState('')
 
+  
   useEffect(() => {
     dispatch(setIsPlaying(isPlay))
   }, [dispatch, isPlay])
@@ -111,7 +111,7 @@ export default function TrackSlider() {
           <img className='track-slider__info-cover' src={getImageUrl(trackData)} alt='' />
           <div className='track-slider__info-meta'>
             <h3 className='track-slider__info-title'>{trackData.name}</h3>
-            <span className='track-slider__info-auth'>{trackData.author.name}</span>
+            <span className='track-slider__info-auth'>{trackData.author.name} | {country} </span>
           </div>
           <div className='track-slider__info-btns'>
             <button className='track-slider__info-btn' onClick={() => setIsShow(!isShow)}><VidoBtn fill={isShow ? '#0075ff' : ''} /></button>

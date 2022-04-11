@@ -18,6 +18,7 @@ export function Favorites({ closeFavorites }) {
     trackCount: tracks.length,
     content: tracks,
   }), [tracks])
+  
   const dispatch = useDispatch()
 
   function setFavoritePlaylist(value) {
