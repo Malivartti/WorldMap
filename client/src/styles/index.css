@@ -219,8 +219,15 @@
 }
 
 .track-slider__info-title {
-    font-size: 20px;
+    font-size: 16px;
     color: inherit;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+   line-height: X;        
+   max-height: X*2;
 }
 
 .track-slider__info-auth {
