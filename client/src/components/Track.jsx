@@ -7,18 +7,20 @@ import stopBtn from '../img/stop.svg'
 import '../styles/song.css'
 import '../styles/playing.css'
 
-import { formatTime, formatMillisecondsToSeconds } from '../helper';
+import { formatTime, isFavorite } from '../helper';
 import { getImageUrl } from './../helper/index';
 import Playing from './Playing';
+import { getFavoriteTracks, getTrack, getIsPlaying } from '../store/selectors'
+
 
 export default function Track({ trackData, handleClick }) {
-  const isFavorite = useSelector(state => state.favoriteTracks.some((treck) => treck.videoId === trackData.videoId))
-  const isCurrentTrack = useSelector(state => state.track).videoId === trackData.videoId
-  const isPlaying = useSelector(state => state.isPlaying)
+  const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
+  const isCurrentTrack = useSelector(getTrack).videoId === trackData.videoId;
+  const isPlaying = useSelector(getIsPlaying);
   const dipatch = useDispatch()
 
   function manageFavorite() {
-    if (isFavorite) dipatch(removeFavoriteTrack(trackData.videoId))
+    if (isTrackFavorite) dipatch(removeFavoriteTrack(trackData.videoId))
     else dipatch(addFavoriteTrack(trackData))
   }
 
@@ -29,9 +31,9 @@ export default function Track({ trackData, handleClick }) {
         <div className="song__name">{trackData.name}</div>
         <div className="song__author">{trackData.author.name}</div>
       </div>
-      <div className="song__duration">{formatTime(formatMillisecondsToSeconds(trackData.duration))}</div>
+      <div className="song__duration">{formatTime('milliseconds', trackData.duration)}</div>
       <button className="song__btn-favorites btn-reset" onClick={manageFavorite}>
-        <LikeBtn fill={isFavorite ? 'red' : 'black'} />
+        <LikeBtn fill={isTrackFavorite ? 'red' : 'black'} />
       </button>
       <button className='song__control-play btn-reset' onClick={() => handleClick(trackData)}>
         {isCurrentTrack ? isPlaying ? <Playing /> : <img src={stopBtn} alt='' /> : <img src={playBtn} alt='' />}

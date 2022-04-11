@@ -8,11 +8,10 @@ import { ReactComponent as VidoBtn } from '../img/open-video.svg'
 import { ReactComponent as RepeatBtn } from '../img/playback-repeat_1.svg'
 import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
-import { formatTime, getImageUrl } from './../helper/index';
+import { formatTime, getImageUrl, isFavorite } from './../helper/index';
 import { removeFavoriteTrack, setTrack, addFavoriteTrack } from '../store/Actions';
 import { setIsPlaying } from './../store/Actions/index';
-
-
+import { getTrack, getPlaylistContent, getFavoriteTracks } from '../store/selectors';
 
 const opts = {
   height: '525',
@@ -25,15 +24,18 @@ const opts = {
 }
 
 export default function TrackSlider() {
-  const tracklData = useSelector(state => state.track)
-  const isFavorite = useSelector(state => state.favoriteTracks.some((treck) => treck.videoId === tracklData.videoId))
+  const trackData = useSelector(getTrack);
+  const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId')
+  // const isFavorite = useSelector(state => state.favoriteTracks.some((treck) => treck.videoId === trackData.videoId))
+  const playlist = useSelector(getPlaylistContent);
+
   const [player, setPlayer] = useState(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(50)
   const [isPlay, setIsPlay] = useState(true)
   const [isShow, setIsShow] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
-  const playlist = useSelector(state => state.playlist).content
+
   const dispatch = useDispatch()
   const [error, setError] = useState('')
 
@@ -68,12 +70,12 @@ export default function TrackSlider() {
   }
 
   function manageFavorite() {
-    if (isFavorite) dispatch(removeFavoriteTrack(tracklData.videoId))
-    else dispatch(addFavoriteTrack(tracklData))
+    if (isTrackFavorite) dispatch(removeFavoriteTrack(trackData.videoId))
+    else dispatch(addFavoriteTrack(trackData))
   }
 
   function getIndexTrack() {
-    return playlist?.findIndex(track => track.videoId === tracklData.videoId)
+    return playlist?.findIndex(track => track.videoId === trackData.videoId)
   }
 
   function setTrackOnPlaylist(index) {
@@ -89,12 +91,12 @@ export default function TrackSlider() {
     if (index < playlist.length) setTrackOnPlaylist(getIndexTrack() + 1)
   }
 
-  if (!Object.keys(tracklData).length) return null
+  if (!Object.keys(trackData).length) return null
   return (
     <>
       <div className={`track-slider__video ${isShow ? 'visible' : ''}`}>
         <YouTube
-          videoId={tracklData.videoId}
+          videoId={trackData.videoId}
           opts={opts}
           onReady={onReady}
           onEnd={() => setTrackOnPlaylist(getIndexTrack() + 1)}
@@ -106,14 +108,14 @@ export default function TrackSlider() {
 
       <div className="track-slider">
         <div className='track-slider__info'>
-          <img className='track-slider__info-cover' src={getImageUrl(tracklData)} alt='' />
+          <img className='track-slider__info-cover' src={getImageUrl(trackData)} alt='' />
           <div className='track-slider__info-meta'>
-            <h3 className='track-slider__info-title'>{tracklData.name}</h3>
-            <span className='track-slider__info-auth'>{tracklData.author.name}</span>
+            <h3 className='track-slider__info-title'>{trackData.name}</h3>
+            <span className='track-slider__info-auth'>{trackData.author.name}</span>
           </div>
           <div className='track-slider__info-btns'>
             <button className='track-slider__info-btn' onClick={() => setIsShow(!isShow)}><VidoBtn fill={isShow ? '#0075ff' : ''} /></button>
-            <button className='track-slider__info-btn' onClick={manageFavorite}><LikeBtn fill={isFavorite ? 'red' : 'black'} /></button>
+            <button className='track-slider__info-btn' onClick={manageFavorite}><LikeBtn fill={isTrackFavorite ? 'red' : 'black'} /></button>
             <button className='track-slider__info-btn' onClick={() => setIsRepeat(!isRepeat)}><RepeatBtn fill={isRepeat ? '#0075ff' : ''} /></button>
           </div>
         </div>
@@ -124,9 +126,9 @@ export default function TrackSlider() {
             <button className='track-slider__control-arrow btn-reset' onClick={() => setTrackOnPlaylist(getIndexTrack() + 1)}><img src={arrowRightBtn} alt='' /></button>
           </div>
           <div className='track-slider__soundtrack'>
-            <span className='track-slider__soundtrack-time'>{formatTime(currentTime)}</span>
-            <input className='track-slider__soundtrack-input' type="range" min="0" max={Math.round(tracklData.duration / 1000)} value={currentTime} onInput={(e) => player.seekTo(e.target.value)} />
-            <span className='track-slider__soundtrack-time'>{formatTime(Math.round(tracklData.duration / 1000))}</span>
+            <span className='track-slider__soundtrack-time'>{formatTime('seconds', currentTime)}</span>
+            <input className='track-slider__soundtrack-input' type="range" min="0" max={Math.round(trackData.duration / 1000)} value={currentTime} onInput={(e) => player.seekTo(e.target.value)} />
+            <span className='track-slider__soundtrack-time'>{formatTime('milliseconds', trackData.duration)}</span>
           </div>
         </div>
         <input className='track-slider__volume' type="range" min="0" max="100" value={volume} onInput={handleVolume} />
