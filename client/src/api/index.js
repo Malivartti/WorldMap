@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const URL = "http://localhost:3001";
+
 export async function getSearch(search) {
   try {
-    const response = await axios.post('http://localhost:3001/search', {
+    const response = await axios.post(`${URL}/search`, {
       search
     })
     return response.data.playlists;
@@ -13,7 +15,7 @@ export async function getSearch(search) {
 
 export async function getPlaylist(browseId) {
   try {
-    const response = await axios.post('http://localhost:3001/playlist', {
+    const response = await axios.post(`${URL}/playlist`, {
       browseId
     })
     return response.data.tracks
@@ -24,7 +26,7 @@ export async function getPlaylist(browseId) {
 
 export async function getCountry(countryId) {
   try {
-    const response = await axios.post('http://localhost:3001/country', {
+    const response = await axios.post(`${URL}/country`, {
       countryId,
     })
     return response.data.country
