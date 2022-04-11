@@ -9,6 +9,8 @@ const defaultState = {
   favoriteTracks: [],
   favoritePlaylists: [],
   setCurrentFavoritePlaylist: null,
+  isPlaying: false,
+  blockedPlaylists: []
 }
 
 export const rootReducer = (state = defaultState, action) => {
@@ -22,7 +24,9 @@ export const rootReducer = (state = defaultState, action) => {
     case ACTIONS.SET_PLAYLIST:
       return { ...state, playlist: action.payload }
     case ACTIONS.SET_CURRENT_FAVOTITE_PLAYLIST:
-      return { ...state, setCurrentFavoritePlaylist: action.payload}
+      return { ...state, setCurrentFavoritePlaylist: action.payload }
+    case ACTIONS.SET_IS_PLAYING:
+      return { ...state, isPlaying: action.payload }
     case ACTIONS.ADD_FAVORITE_TRACK:
       return { ...state, favoriteTracks: [...state.favoriteTracks, action.payload] }
     case ACTIONS.ADD_FAVORITE_PLAYLIST:
@@ -31,6 +35,8 @@ export const rootReducer = (state = defaultState, action) => {
       return { ...state, favoriteTracks: state.favoriteTracks.filter(track => track.videoId !== action.payload) }
     case ACTIONS.REMOVE_FAVORITE_PLAYLIST:
       return { ...state, favoritePlaylists: state.favoritePlaylists.filter(playlistId => playlistId.browseId !== action.payload) }
+    case ACTIONS.BLOCK_PLAYLIST:
+      return { ...state, blockedPlaylists: [...state.blockedPlaylists, action.payload] }
     default:
       return state
   }

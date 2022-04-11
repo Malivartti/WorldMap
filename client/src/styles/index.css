@@ -140,10 +140,10 @@
 
 .playlist__card-img {
     width: 180px;
+    margin-right: 10px;
 }
 
 .playlist__card-main {
-    margin: 7px;
 	display: flex;
     justify-content: space-between;
     align-items: center;
@@ -160,6 +160,7 @@
 .playlist__btn-favorites {
     width: 40px;
     height: 40px;
+    margin-right: 10px;
 }
 
 .playlist__tracks {
@@ -192,8 +193,23 @@
     display: none;
 }
 
+.track-slider__modal {
+    opacity: 0;
+    width: 40%;
+    text-align: center;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background: #e75252;
+    z-index: 3;
+    transition: opacity .3s linear;
+}
+
 .visible {
     display: block;
+    opacity: 1;
 }
 
 .track-slider__info {

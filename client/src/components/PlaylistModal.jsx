@@ -18,14 +18,16 @@ export default function PlaylistModal({ currentFavoritePlaylist }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    if (currentFavoritePlaylist !== null) setShowPlaylists(false)
+  }, [currentFavoritePlaylist])
+
+  useEffect(() => {
     if (typeof currentFavoritePlaylist === 'string') {
       setPlaylistId(currentFavoritePlaylist)
-      setShowPlaylists(false)
       setPlaylist(null)
       dispatch(setCurrentFavoritePlaylist(null))
     } else if (currentFavoritePlaylist !== null) {
       setPlaylist(currentFavoritePlaylist)
-      setShowPlaylists(false)
     }
   }, [dispatch, currentFavoritePlaylist])
 
@@ -40,7 +42,7 @@ export default function PlaylistModal({ currentFavoritePlaylist }) {
         setPlaylists(res)
       });
     }
-  }, [countryName])
+  }, [dispatch, countryName])
 
   return (
     <div className={`playlists ${showPlaylists ? '' : 'playlists_tracks'}`} onClick={e => e.stopPropagation()}>
@@ -52,7 +54,7 @@ export default function PlaylistModal({ currentFavoritePlaylist }) {
           setShowPlaylists={setShowPlaylists}
           setPlaylistId={setPlaylistId}
           setPlaylist={setPlaylist}
-           />
+        />
         : <PlaylistTracks
           playlistId={playlistId}
           playlist={playlist}

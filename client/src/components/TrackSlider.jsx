@@ -10,8 +10,7 @@ import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
 import { formatTime, getImageUrl } from './../helper/index';
 import { removeFavoriteTrack, setTrack, addFavoriteTrack } from '../store/Actions';
-
-
+import { setIsPlaying } from './../store/Actions/index';
 
 const opts = {
   height: '525',
@@ -23,7 +22,7 @@ const opts = {
   }
 }
 
-export default function TrackSlider() {
+export default function TrackSlider({ setError }) {
   const tracklData = useSelector(state => state.track)
   const isFavorite = useSelector(state => state.favoriteTracks.some((treck) => treck.videoId === tracklData.videoId))
   const [player, setPlayer] = useState(null)
@@ -33,7 +32,11 @@ export default function TrackSlider() {
   const [isShow, setIsShow] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
   const playlist = useSelector(state => state.playlist).content
-  const dipatch = useDispatch()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setIsPlaying(isPlay))
+  }, [dispatch, isPlay])
 
   useEffect(() => {
     if (player) {
@@ -62,8 +65,8 @@ export default function TrackSlider() {
   }
 
   function manageFavorite() {
-    if (isFavorite) dipatch(removeFavoriteTrack(tracklData.videoId))
-    else dipatch(addFavoriteTrack(tracklData))
+    if (isFavorite) dispatch(removeFavoriteTrack(tracklData.videoId))
+    else dispatch(addFavoriteTrack(tracklData))
   }
 
   function getIndexTrack() {
@@ -71,9 +74,16 @@ export default function TrackSlider() {
   }
 
   function setTrackOnPlaylist(index) {
-    if (isRepeat && index === -1) dipatch(setTrack(playlist[playlist.length - 1]))
-    if (isRepeat && index === playlist.length) dipatch(setTrack(playlist[0]))
-    if (0 <= index && index < playlist.length) dipatch(setTrack(playlist[index]))
+    if (isRepeat && index === -1) dispatch(setTrack(playlist[playlist.length - 1]))
+    if (isRepeat && index === playlist.length) dispatch(setTrack(playlist[0]))
+    if (0 <= index && index < playlist.length) dispatch(setTrack(playlist[index]))
+  }
+
+  function handleError() {
+    const index = getIndexTrack()
+    setError(`Track ${playlist[index].name} is not available`)
+    setTimeout(() => setError(''), 3000)
+    if (index < playlist.length) setTrackOnPlaylist(index + 1)
   }
 
   if (!Object.keys(tracklData).length) return null
@@ -85,6 +95,7 @@ export default function TrackSlider() {
           opts={opts}
           onReady={onReady}
           onEnd={() => setTrackOnPlaylist(getIndexTrack() + 1)}
+          onError={handleError}
         />
       </div>
 

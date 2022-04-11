@@ -1,8 +1,13 @@
+import React from 'react';
 import PlaylistItem from './PlaylistItem'
 import { getImageUrl } from './../helper/index';
+import { useSelector } from 'react-redux';
+import { getBlockedPlaylist } from './../store/selectors';
 
 
 export default function Playlists({ playlists, title, isLoading, setShowPlaylists, setPlaylistId, setPlaylist }) {
+  const blockedPlaylists = useSelector(getBlockedPlaylist)
+
   function getPlaylistTracks(id) {
     setShowPlaylists(false);
     setPlaylistId(id)
@@ -19,7 +24,7 @@ export default function Playlists({ playlists, title, isLoading, setShowPlaylist
           </div>
           : !playlists.length
             ? <h3>Not found</h3>
-            : playlists.map((playlist) =>
+            : playlists.filter(playlist => !blockedPlaylists.includes(playlist.browseId)).map((playlist) =>
               <PlaylistItem
                 key={playlist.browseId}
                 name={playlist.title}
