@@ -52,9 +52,13 @@
 
 .App__header-btn_playlists {
     background: url(../img/playlists.svg);
+    background-color: var(--second-color);
 }
 .App__header-btn_return {
     background: url(../img/return.svg);
+    position: fixed;
+    background-color: var(--second-color);
+    border-radius: 5px;
 }
 
 .favorites {
@@ -70,9 +74,9 @@
     z-index: 2;
 }
 
-.favorites img {
+/* .favorites img {
     margin-bottom: 20px;
-}
+} */
 
 .main {
     padding: 70px 0;

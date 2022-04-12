@@ -1,25 +1,24 @@
 import React, { useMemo, useEffect } from 'react'
-import image from '../img/MyPlaylist.jpg';
+import image from '../img/cassette.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFavoritePlaylist, getFavoriteTracks } from '../store/selectors';
-import Playlists from './Playlists';
+import { getFavoritePlaylists, getFavoriteTracks } from '../store/selectors';
+import Playlists from './playlistModal/Playlists';
 import { setCurrentFavoritePlaylist } from '../store/Actions';
 import { getCurrentFavoritePlaylist } from './../store/selectors';
 
-
-
 export function Favorites({ closeFavorites }) {
-  const playlists = useSelector(getFavoritePlaylist)
-  const trakcs = useSelector(getFavoriteTracks)
-  const curentPlaylist = useSelector(getCurrentFavoritePlaylist)
+  const playlists = useSelector(getFavoritePlaylists)
+  const tracks = useSelector(getFavoriteTracks)
+  const currentPlaylist = useSelector(getCurrentFavoritePlaylist)
   const tracksPlaylist = useMemo(() => ({
     owner: 'You',
     title: 'Your Favorite Tracks',
     dateYear: '2022',
     thumbnails: { url: image },
-    trackCount: trakcs.length,
-    content: trakcs,
-  }), [trakcs])
+    trackCount: tracks.length,
+    content: tracks,
+  }), [tracks])
+  
   const dispatch = useDispatch()
 
   function setFavoritePlaylist(value) {
@@ -27,8 +26,8 @@ export function Favorites({ closeFavorites }) {
   }
 
   useEffect(() => {
-    if (curentPlaylist !== null && typeof curentPlaylist === 'object') dispatch(setCurrentFavoritePlaylist(tracksPlaylist))
-  }, [dispatch, curentPlaylist, tracksPlaylist])
+    if (currentPlaylist !== null && typeof currentPlaylist === 'object') dispatch(setCurrentFavoritePlaylist(tracksPlaylist))
+  }, [dispatch, currentPlaylist, tracksPlaylist])
 
   return (
     <div className="favorites">

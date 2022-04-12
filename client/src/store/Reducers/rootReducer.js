@@ -8,7 +8,7 @@ const defaultState = {
   playlist: [],
   favoriteTracks: [],
   favoritePlaylists: [],
-  setCurrentFavoritePlaylist: null,
+  currentFavoritePlaylist: null,
   isPlaying: false,
   blockedPlaylists: []
 }
@@ -24,7 +24,7 @@ export const rootReducer = (state = defaultState, action) => {
     case ACTIONS.SET_PLAYLIST:
       return { ...state, playlist: action.payload }
     case ACTIONS.SET_CURRENT_FAVOTITE_PLAYLIST:
-      return { ...state, setCurrentFavoritePlaylist: action.payload }
+      return { ...state, currentFavoritePlaylist: action.payload }
     case ACTIONS.SET_IS_PLAYING:
       return { ...state, isPlaying: action.payload }
     case ACTIONS.ADD_FAVORITE_TRACK:

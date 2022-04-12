@@ -1,5 +1,12 @@
-export function formatTime(seconds) {
-  if (Number.isNaN(seconds)) return '00:00'
+export function formatTime(type, num) {
+  let seconds;
+  if (Number.isNaN(num)) return '00:00'
+  if (type === "milliseconds") {
+    seconds = Math.round(num / 1000);
+  } else {
+    seconds = num;
+  };
+
   let minutes = Math.floor(seconds / 60);
   minutes = minutes < 10 ? '0' + minutes : minutes;
   seconds -= minutes * 60;
@@ -17,4 +24,8 @@ export function getImageUrl(item) {
   } catch (err) {
     console.log(err)
   }
+}
+
+export function isFavorite(items, data, chosenId){
+  return items.some((item) => item[chosenId] === data);
 }

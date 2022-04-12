@@ -2,22 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
-import { getPlaylistData } from '../store/selectors';
-import { setPlaylist } from '../store/Actions';
-import { getPlaylist } from '../api'
-import { setTrack } from './../store/Actions/index';
-import { blockPlaylist } from '../store/Actions';
+import { getPlaylistData } from '../../store/selectors';
+import { setPlaylist, blockPlaylist, setTrack } from '../../store/Actions';
+import { getPlaylist } from '../../api'
+import { useCountryName } from '../../hooks/useCountryName';
 
 
 export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) {
   const [currentPlaylist, setCurrentPlaylist] = useState({})
   const [isLoading, setIsLoading] = useState(false);
-  const storePlaylist = useSelector(getPlaylistData)
+  const storePlaylist = useSelector(getPlaylistData);
+  const country = useCountryName(currentPlaylist);
   const dispatch = useDispatch();
 
   function handleClick(track) {
     if (currentPlaylist !== storePlaylist) dispatch(setPlaylist(currentPlaylist))
-    dispatch(setTrack(track))
+    dispatch(setTrack({ ...track, country: country }))
   }
 
   function addBlockPlaylist(id) {
@@ -36,7 +36,7 @@ export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) 
           setIsLoading(false)
           setCurrentPlaylist(res)
         })
-        .catch(() => console.log(22))
+        .catch(console.log)
     } else {
       setCurrentPlaylist(playlist)
     }
