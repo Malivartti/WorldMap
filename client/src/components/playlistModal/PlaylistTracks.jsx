@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
 import { getPlaylistData } from '../../store/selectors';
-import { setPlaylist } from '../../store/Actions';
+import { setPlaylist, blockPlaylist, setTrack } from '../../store/Actions';
 import { getPlaylist } from '../../api'
-import { setTrack } from '../../store/Actions/index';
 import { useCountryName } from '../../hooks/useCountryName';
+
 
 export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) {
   const [currentPlaylist, setCurrentPlaylist] = useState({})
@@ -17,15 +17,22 @@ export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) 
 
   function handleClick(track) {
     if (currentPlaylist !== storePlaylist) dispatch(setPlaylist(currentPlaylist))
-    dispatch(setTrack({...track, country: country}))
+    dispatch(setTrack({ ...track, country: country }))
+  }
+
+  function addBlockPlaylist(id) {
+    showPlaylists()
+    dispatch(blockPlaylist(id))
   }
 
   useEffect(() => {
     if (!playlist) {
+      const timerId = setTimeout(() => addBlockPlaylist(playlistId), 5000)
       setCurrentPlaylist({})
       setIsLoading(true)
       getPlaylist(playlistId)
         .then(res => {
+          clearTimeout(timerId)
           setIsLoading(false)
           setCurrentPlaylist(res)
         })

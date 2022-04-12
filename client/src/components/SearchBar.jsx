@@ -20,7 +20,7 @@ export function SearchBar({openModal}) {
     >
         <input className="searchBar__input" 
         type="text" 
-        placeholder="Enter a country"
+        placeholder="Enter or Click a Country"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         />
