@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube';
 import { ReactComponent as LikeBtn } from '../img/like.svg'

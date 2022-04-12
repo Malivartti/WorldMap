@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import TrackSlider from './TrackSlider';
 import Favorites from './Favorites';
 import PlaylistModal from './playlistModal/PlaylistModal';
 import AppHeader from './AppHeader';
 import Map from './Map';
-import { getCurrentFavoritePlaylist } from './../store/selectors';
-import { useSelector } from 'react-redux';
-import { getBlockedPlaylist } from '../store/selectors';
+import { getCurrentFavoritePlaylist, getBlockedPlaylist } from './../store/selectors';
+
 
 function App() {
   const [isFavorites, setIsFavorites] = useState(false);
