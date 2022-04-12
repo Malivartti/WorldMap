@@ -1,10 +1,10 @@
 import React from 'react'
-import playBtn from '../img/play.svg'
-import { getImageUrl, isFavorite } from './../helper/index';
-import {ReactComponent as FavoriteBtn} from '../img/like.svg'
+import playBtn from '../../img/play.svg'
+import { getImageUrl, isFavorite } from '../../helper/index';
+import {ReactComponent as FavoriteBtn} from '../../img/like.svg'
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavoritePlaylist, removeFavoritePlaylist } from './../store/Actions/index';
-import { getFavoritePlaylists } from '../store/selectors';
+import { addFavoritePlaylist, removeFavoritePlaylist } from '../../store/Actions/index';
+import { getFavoritePlaylists } from '../../store/selectors';
 
 export default function PlaylistHeader({playlist, playlistId, handleClick}) {
   const isPlaylistFavorite = isFavorite(useSelector(getFavoritePlaylists), playlistId, 'browseId');

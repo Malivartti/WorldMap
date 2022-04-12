@@ -45,6 +45,11 @@
     flex-shrink: 0;
 }
 
+.song_country {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
 .playlist__card-play {
     margin: 0;
 }

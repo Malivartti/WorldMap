@@ -1,6 +1,6 @@
-import React, { useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import { useSelector } from "react-redux";
-import { getSearchValue, getCountryName } from "../../store/selectors";
+import { getSearchValue, getCountryName } from "../store/selectors";
 
 export function useCountryName(trackData){
   const [country, setCountry] = useState('');

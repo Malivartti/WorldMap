@@ -2,41 +2,34 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
-import { getPlaylistData } from '../store/selectors';
-import { setPlaylist } from '../store/Actions';
-import { getPlaylist } from '../api'
-import { setTrack } from './../store/Actions/index';
-import { blockPlaylist } from '../store/Actions';
-
+import { getPlaylistData } from '../../store/selectors';
+import { setPlaylist } from '../../store/Actions';
+import { getPlaylist } from '../../api'
+import { setTrack } from '../../store/Actions/index';
+import { useCountryName } from '../../hooks/useCountryName';
 
 export default function PlaylistTracks({ playlistId, playlist, showPlaylists }) {
   const [currentPlaylist, setCurrentPlaylist] = useState({})
   const [isLoading, setIsLoading] = useState(false);
-  const storePlaylist = useSelector(getPlaylistData)
+  const storePlaylist = useSelector(getPlaylistData);
+  const country = useCountryName(currentPlaylist);
   const dispatch = useDispatch();
 
   function handleClick(track) {
     if (currentPlaylist !== storePlaylist) dispatch(setPlaylist(currentPlaylist))
-    dispatch(setTrack(track))
-  }
-
-  function addBlockPlaylist(id) {
-    showPlaylists()
-    dispatch(blockPlaylist(id))
+    dispatch(setTrack({...track, country: country}))
   }
 
   useEffect(() => {
     if (!playlist) {
-      const timerId = setTimeout(() => addBlockPlaylist(playlistId), 5000)
       setCurrentPlaylist({})
       setIsLoading(true)
       getPlaylist(playlistId)
         .then(res => {
-          clearTimeout(timerId)
           setIsLoading(false)
           setCurrentPlaylist(res)
         })
-        .catch(() => console.log(22))
+        .catch(console.log)
     } else {
       setCurrentPlaylist(playlist)
     }

@@ -2,14 +2,14 @@ import React, { useMemo, useEffect } from 'react'
 import image from '../img/cassette.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFavoritePlaylists, getFavoriteTracks } from '../store/selectors';
-import Playlists from './Playlists';
+import Playlists from './playlistModal/Playlists';
 import { setCurrentFavoritePlaylist } from '../store/Actions';
 import { getCurrentFavoritePlaylist } from './../store/selectors';
 
 export function Favorites({ closeFavorites }) {
   const playlists = useSelector(getFavoritePlaylists)
   const tracks = useSelector(getFavoriteTracks)
-  const curentPlaylist = useSelector(getCurrentFavoritePlaylist)
+  const currentPlaylist = useSelector(getCurrentFavoritePlaylist)
   const tracksPlaylist = useMemo(() => ({
     owner: 'You',
     title: 'Your Favorite Tracks',
@@ -26,8 +26,8 @@ export function Favorites({ closeFavorites }) {
   }
 
   useEffect(() => {
-    if (curentPlaylist !== null && typeof curentPlaylist === 'object') dispatch(setCurrentFavoritePlaylist(tracksPlaylist))
-  }, [dispatch, curentPlaylist, tracksPlaylist])
+    if (currentPlaylist !== null && typeof currentPlaylist === 'object') dispatch(setCurrentFavoritePlaylist(tracksPlaylist))
+  }, [dispatch, currentPlaylist, tracksPlaylist])
 
   return (
     <div className="favorites">
