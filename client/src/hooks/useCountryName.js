@@ -10,7 +10,6 @@ export function useCountryName(trackData){
 
   useEffect(() => {
     setCountry(countryName);
-    console.log(countryName)
   }, [trackData])
 
   return country;
