@@ -75,7 +75,7 @@
 }
 
 .main {
-    padding: 70px 0;
+    padding: 70px 0 35px 0;
 }
 
 /* ################################### PLAYLIST ###################################### */
@@ -221,11 +221,26 @@
 .track-slider__info-title {
     font-size: 20px;
     color: inherit;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: X;        
+    max-height: X*2;     
+
 }
 
 .track-slider__info-auth {
     font-size: 14px;
     opacity: .7;
+    line-height: 1.5em;
+    height: 1.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 
 .track-slider__info-btn {

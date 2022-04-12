@@ -1,4 +1,6 @@
 import React from 'react';
+import Playing from './Playing';
+
 
 export default function PlaylistItem({name, image, showPlaylistTracks}) {
   return (
