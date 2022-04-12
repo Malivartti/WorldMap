@@ -1,8 +1,8 @@
 import React from 'react';
 import PlaylistItem from './PlaylistItem'
-import { getImageUrl } from './../helper/index';
+import { getImageUrl } from '../../helper/index';
 import { useSelector } from 'react-redux';
-import { getBlockedPlaylist } from './../store/selectors';
+import { getBlockedPlaylist } from '../../store/selectors';
 
 
 export default function Playlists({ playlists, title, isLoading, setShowPlaylists, setPlaylistId, setPlaylist }) {

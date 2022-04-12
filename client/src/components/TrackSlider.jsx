@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube';
 import { ReactComponent as LikeBtn } from '../img/like.svg'
@@ -12,7 +12,7 @@ import { formatTime, getImageUrl, isFavorite } from './../helper/index';
 import { removeFavoriteTrack, setTrack, addFavoriteTrack } from '../store/Actions';
 import { setIsPlaying } from './../store/Actions/index';
 import { getTrack, getPlaylistContent, getFavoriteTracks } from '../store/selectors';
-import { useCountryName } from './customHooks/useCountryName';
+import { useCountryName } from '../hooks/useCountryName';
 
 const opts = {
   height: '525',
@@ -24,7 +24,7 @@ const opts = {
   }
 }
 
-export default function TrackSlider({ setError }) {
+export default function TrackSlider() {
   const trackData = useSelector(getTrack);
   const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
   const playlist = useSelector(getPlaylistContent);
@@ -34,8 +34,9 @@ export default function TrackSlider({ setError }) {
   const [isPlay, setIsPlay] = useState(true)
   const [isShow, setIsShow] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
-  const country = useCountryName(trackData)
+  const country = useCountryName(trackData);
   const dispatch = useDispatch()
+  const [error, setError] = useState('')
 
   
   useEffect(() => {
@@ -78,16 +79,16 @@ export default function TrackSlider({ setError }) {
   }
 
   function setTrackOnPlaylist(index) {
-    if (isRepeat && index === -1) dispatch(setTrack(playlist[playlist.length - 1]))
-    if (isRepeat && index === playlist.length) dispatch(setTrack(playlist[0]))
-    if (0 <= index && index < playlist.length) dispatch(setTrack(playlist[index]))
+    if (isRepeat && index === -1) dispatch(setTrack({...playlist[playlist.length - 1], country: country}))
+    if (isRepeat && index === playlist.length) dispatch(setTrack({...playlist[0], country: country}))
+    if (0 <= index && index < playlist.length) dispatch(setTrack({...playlist[index], country: country}))
   }
 
   function handleError() {
     const index = getIndexTrack()
-    setError(`Track ${playlist[index].name} is not available`)
+    setError(`Track ${playlist[index].name} not available`)
     setTimeout(() => setError(''), 3000)
-    if (index < playlist.length) setTrackOnPlaylist(index + 1)
+    if (index < playlist.length) setTrackOnPlaylist(getIndexTrack() + 1)
   }
 
   if (!Object.keys(trackData).length) return null
@@ -103,12 +104,14 @@ export default function TrackSlider({ setError }) {
         />
       </div>
 
+      <h2 className={`track-slider__modal ${error ? 'visible' : ''}`}>{error}</h2>
+
       <div className="track-slider">
         <div className='track-slider__info'>
           <img className='track-slider__info-cover' src={getImageUrl(trackData)} alt='' />
           <div className='track-slider__info-meta'>
             <h3 className='track-slider__info-title'>{trackData.name}</h3>
-            <span className='track-slider__info-auth'>{trackData.author.name} | {country} </span>
+            <span className='track-slider__info-auth'>{trackData.author.name} | {trackData.country} </span>
           </div>
           <div className='track-slider__info-btns'>
             <button className='track-slider__info-btn' onClick={() => setIsShow(!isShow)}><VidoBtn fill={isShow ? '#0075ff' : ''} /></button>

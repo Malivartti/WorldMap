@@ -41,7 +41,7 @@ app.post('/playlist', (req, res) => {
 app.post('/country', (req, res) => {
   try {
     const countryId = req.body.countryId
-    const country = countries.getName(countryId, "en", { select: "official" })
+    const country = countries.getName(countryId, "en", { select: "alias" })
     res.json({ country })
   } catch (err) {
     console.log()
