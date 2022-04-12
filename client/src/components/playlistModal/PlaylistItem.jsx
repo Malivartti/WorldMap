@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export default function PlaylistItem({name, image, showPlaylistTracks}) {
   return (
     <div className="playlist__item" onClick={showPlaylistTracks} >
