@@ -145,6 +145,8 @@
 .playlist__card-img {
     width: 180px;
     margin-right: 10px;
+    height: fit-content;
+    align-self: center;
 }
 
 .playlist__card-main {
