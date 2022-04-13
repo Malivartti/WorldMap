@@ -6,7 +6,7 @@ import Playlists from './playlistModal/Playlists';
 import { setCurrentFavoritePlaylist } from '../store/Actions';
 import { getCurrentFavoritePlaylist } from './../store/selectors';
 
-export function Favorites({ closeFavorites }) {
+export function Favorites() {
   const playlists = useSelector(getFavoritePlaylists)
   const tracks = useSelector(getFavoriteTracks)
   const currentPlaylist = useSelector(getCurrentFavoritePlaylist)
