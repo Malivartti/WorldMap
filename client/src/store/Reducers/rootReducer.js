@@ -3,30 +3,31 @@ import { ACTIONS } from './../Actions/index';
 
 const defaultState = {
   search: { value: '', isFormRequest: false },
-  country: '',
-  track: {},
-  playlist: [],
+  track: { data: {}, isPlaying: false},
+  currentPlaylist: {
+    playing: {},
+    chosen: {}
+  },
   favoriteTracks: [],
   favoritePlaylists: [],
   currentFavoritePlaylist: null,
-  isPlaying: false,
   blockedPlaylists: []
 }
 
 export const rootReducer = (state = defaultState, action) => {
   switch (action.type) {
     case ACTIONS.SET_SEARCH_VALUE:
-      return { ...state, search: { value: action.payload.value, isFormRequest: action.payload.isFormRequest } }
-    case ACTIONS.SET_COUNTRY:
-      return { ...state, country: action.payload }
+      return { ...state, search: { 
+        value: action.payload.value, isFormRequest: action.payload.isFormRequest } }
     case ACTIONS.SET_TRACK:
-      return { ...state, track: action.payload }
+      return { ...state, track: {...state.track, 
+        data: action.payload } }
+    case ACTIONS.SET_IS_PLAYING:
+      return { ...state, track: {...state.track, isPlaying: action.payload }}
     case ACTIONS.SET_PLAYLIST:
-      return { ...state, playlist: action.payload }
+      return { ...state, currentPlaylist: {...state.currentPlaylist, playing: action.payload} }
     case ACTIONS.SET_CURRENT_FAVOTITE_PLAYLIST:
       return { ...state, currentFavoritePlaylist: action.payload }
-    case ACTIONS.SET_IS_PLAYING:
-      return { ...state, isPlaying: action.payload }
     case ACTIONS.ADD_FAVORITE_TRACK:
       return { ...state, favoriteTracks: [...state.favoriteTracks, action.payload] }
     case ACTIONS.ADD_FAVORITE_PLAYLIST:

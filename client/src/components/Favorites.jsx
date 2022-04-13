@@ -1,12 +1,12 @@
 import React, { useMemo, useEffect } from 'react'
-import image from '../img/cassette.svg';
+import image from '../img/GettyImages-1329515378.jpg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFavoritePlaylists, getFavoriteTracks } from '../store/selectors';
 import Playlists from './playlistModal/Playlists';
 import { setCurrentFavoritePlaylist } from '../store/Actions';
 import { getCurrentFavoritePlaylist } from './../store/selectors';
 
-export function Favorites({ closeFavorites }) {
+export function Favorites() {
   const playlists = useSelector(getFavoritePlaylists)
   const tracks = useSelector(getFavoriteTracks)
   const currentPlaylist = useSelector(getCurrentFavoritePlaylist)
@@ -32,7 +32,7 @@ export function Favorites({ closeFavorites }) {
   return (
     <div className="favorites">
       <h2 className='title'>Favorite tracks</h2>
-      <img src={image} alt="" className="playlist__img" onClick={() => setFavoritePlaylist(tracksPlaylist)} />
+      <img src={image} alt="" className="playlist-my__img" onClick={() => setFavoritePlaylist(tracksPlaylist)} />
       <Playlists
         playlists={playlists}
         title='Favorite Playlists'

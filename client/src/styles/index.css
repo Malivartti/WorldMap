@@ -118,8 +118,14 @@
     margin-bottom: 20px;
 }
 
-.playlist__img {
+.playlist__img, 
+.playlist-my__img {
     width: 100%;
+}
+
+.playlist-my__img {
+    border-radius: 50%;
+    margin-bottom: 7px;
 }
 
 .playlist__item-title {
@@ -142,9 +148,16 @@
     align-items: center;
 }
 
-.playlist__card-img {
+.playlist__card-img, 
+.playlist-my__card-img {
     width: 180px;
     margin-right: 10px;
+    height: fit-content;
+    align-self: center;
+}
+
+.playlist-my__card-img {
+    border-radius: 50%;
 }
 
 .playlist__card-main {
@@ -174,6 +187,9 @@
     align-items: center;
 }
 
+.chosen_playlist {
+    border: 2px solid black;
+}
 
 /* ################################### TRACK-SLIDER ###################################### */
 

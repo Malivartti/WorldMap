@@ -8,6 +8,8 @@ import { getFavoritePlaylists } from '../../store/selectors';
 
 export default function PlaylistHeader({playlist, playlistId, handleClick}) {
   const isPlaylistFavorite = isFavorite(useSelector(getFavoritePlaylists), playlistId, 'browseId');
+  const playlistImg = playlist.owner === "You" ? "playlist-my__card-img" : "playlist__card-img" ;
+
   const dispatch = useDispatch()
 
   function manageFavorite() {
@@ -15,9 +17,10 @@ export default function PlaylistHeader({playlist, playlistId, handleClick}) {
     else dispatch(addFavoritePlaylist({browseId: playlistId, thumbnails: playlist.thumbnails, title: playlist.title}))
   }
 
+
   return (
     <div className="playlist__card">
-        <img className="playlist__card-img" src={getImageUrl(playlist)} alt=""/>
+        <img className={playlistImg} src={getImageUrl(playlist)} alt=""/>
         <div className="playlist__card-main">
           <div className="playlist">
             <h2 className="playlist__card-title">{playlist.title}</h2>

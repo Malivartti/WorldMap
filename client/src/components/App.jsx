@@ -31,14 +31,14 @@ function App() {
 
   return (
     <div className="App">
-      {isFavorites && <Favorites closeFavorites={setIsFavorites} />}
+      {isFavorites && <Favorites closeFavorites={setIsFavorites}/>}
       <div className="main">
         <h2 className={`track-slider__modal ${error ? 'visible' : ''}`}>{error}</h2>
         <AppHeader handle={{ isFavorites, isSelected, setIsFavorites, setSelected }} />
         <Map setSelected={setSelected} />
         <TrackSlider setError={setError} />
       </div>
-      {isSelected && <PlaylistModal currentFavoritePlaylist={currentFavoritePlaylist} />}
+      {isSelected && <PlaylistModal />}
     </div>
   );
 };
