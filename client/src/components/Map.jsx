@@ -17,7 +17,6 @@ function Map({ setSelected }) {
 
   function handleClick(e) {
     setSelected(true);
-    dispatch(setSearchValue({ value: '', isFormRequest: false }))
     dispatch(getRequestCountry(e.target.id));
   }
 
