@@ -10,11 +10,11 @@ import { getBlocked } from './../store/Selectors/appPlaylists';
 
 
 function App() {
-  const [isFavorites, setIsFavorites] = useState(false);
-  const showPlaylistModal = useSelector(getOpenPlaylistModal)
-  const [error, setError] = useState('')
-  const blockedPlaylists = useSelector(getBlocked)
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+  const [error, setError] = useState('');
 
+  const blockedPlaylists = useSelector(getBlocked)
+  const showPlaylistModal = useSelector(getOpenPlaylistModal)
 
   useEffect(() => {
     if (blockedPlaylists.length) {
@@ -26,10 +26,10 @@ function App() {
 
   return (
     <div className="App">
-      {isFavorites && <Favorites />}
+      {isFavoritesOpen && <Favorites />}
       <div className="main">
         <h2 className={`track-slider__modal ${error ? 'visible' : ''}`}>{error}</h2>
-        <AppHeader  isFavorites={isFavorites} setIsFavorites={setIsFavorites}  />
+        <AppHeader  isFavorites={isFavoritesOpen} setIsFavorites={setIsFavoritesOpen}  />
         <Map />
         <TrackSlider setError={setError} />
       </div>

@@ -4,11 +4,11 @@ import { getSearchQuery } from './../store/Selectors/appValues';
 
 export function useCountryName(trackData){
   const [country, setCountry] = useState('');
-  const searchQyery = useSelector(getSearchQuery);
+  const searchQuery = useSelector(getSearchQuery);
 
 
   useEffect(() => {
-    setCountry(searchQyery.isFormRequest ? 'from search' : searchQyery.query);
+    setCountry(searchQuery);
   }, [trackData])
 
   return country;
