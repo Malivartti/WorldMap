@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ReactComponent as LikeBtn } from '../../img/like.svg'
-import { removeFavoriteTrack, addFavoriteTrack } from '../../store/Actions';
 import playBtn from '../../img/play.svg'
 import stopBtn from '../../img/stop.svg'
 import '../../styles/song.css'
@@ -10,13 +9,16 @@ import '../../styles/playing.css'
 import { formatTime, isFavorite } from '../../helper';
 import { getImageUrl } from '../../helper/index';
 import Playing from './Playing';
-import { getFavoriteTracks, getTrack, getIsPlaying } from '../../store/selectors'
 import { useCountryName } from '../../hooks/useCountryName';
+import { getFavoriteTracks } from './../../store/Selectors/appPlaylists';
+import { getPlayingTrack, getIsTrackPlaying } from '../../store/Selectors/appValues'
+import { addFavoriteTrack, removeFavoriteTrack } from './../../store/Actions/appPlaylists';
+
 
 export default function Track({ trackData, handleClick }) {
   const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
-  const isCurrentTrack = useSelector(getTrack).videoId === trackData.videoId;
-  const isPlaying = useSelector(getIsPlaying);
+  const isCurrentTrack = useSelector(getPlayingTrack).videoId === trackData.videoId;
+  const isPlaying = useSelector(getIsTrackPlaying);
   const country = useCountryName(trackData);
   const dipatch = useDispatch()
 

@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import world from '@svg-maps/world'
 import { SVGMap } from 'react-svg-map'
+import world from '@svg-maps/world'
 import { getCountry } from '../api';
 import { getRequestCountry } from './../store/asuncActions/index';
-import { setSearchValue } from '../store/Actions';
+import { openPlaylistModal, showPlaylist } from '../store/Actions/windowDisplay';
 
 
-function Map({ setSelected }) {
+function Map() {
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [focusCountryName, setFocusCountryName] = useState('')
   const [cursorPosition, setCursorPosition] = useState({ top: 0, left: 0 })
   const onMouseMove = e => setCursorPosition({ top: e.screenY, left: e.screenX });
   const dispatch = useDispatch()
 
-
   function handleClick(e) {
-    setSelected(true);
+    dispatch(openPlaylistModal())
+    dispatch(showPlaylist())
     dispatch(getRequestCountry(e.target.id));
   }
 
