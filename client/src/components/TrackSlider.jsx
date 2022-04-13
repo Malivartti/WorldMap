@@ -8,11 +8,13 @@ import { ReactComponent as VidoBtn } from '../img/open-video.svg'
 import { ReactComponent as RepeatBtn } from '../img/playback-repeat_1.svg'
 import playBtn from '../img/play.svg'
 import stopBtn from '../img/stop.svg'
+
 import { formatTime, getImageUrl, isFavorite } from './../helper/index';
-import { removeFavoriteTrack, setTrack, addFavoriteTrack } from '../store/Actions';
-import { setIsPlaying } from './../store/Actions/index';
-import { getTrack, getPlaylistContent, getFavoriteTracks } from '../store/selectors';
 import { useCountryName } from '../hooks/useCountryName';
+import { getPlayingTrack, getPlayingPlaylist, getIsTrackPlaying } from '../store/Selectors/appValues';
+import { getFavoriteTracks } from './../store/Selectors/appPlaylists';
+import { setPlayingTrack, setIsTrackPlaying } from './../store/Actions/appValues';
+import { addFavoriteTrack, removeFavoriteTrack } from '../store/Actions/appPlaylists';
 
 const opts = {
   height: '525',
@@ -25,22 +27,22 @@ const opts = {
 }
 
 export default function TrackSlider() {
-  const trackData = useSelector(getTrack);
+  const trackData = useSelector(getPlayingTrack);
   const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
-  const playlist = useSelector(getPlaylistContent);
+  const playlist = useSelector(getPlayingPlaylist).content;
   const [player, setPlayer] = useState(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(50)
-  const [isPlay, setIsPlay] = useState(true)
+  const isPlay = useSelector(getIsTrackPlaying)
   const [isShow, setIsShow] = useState(false)
   const [isRepeat, setIsRepeat] = useState(false)
   const country = useCountryName(trackData);
   const dispatch = useDispatch()
   const [error, setError] = useState('')
 
-  
+
   useEffect(() => {
-    dispatch(setIsPlaying(isPlay))
+    dispatch(setIsTrackPlaying(isPlay))
   }, [dispatch, isPlay])
 
   useEffect(() => {
@@ -55,11 +57,11 @@ export default function TrackSlider() {
   function onReady(e) {
     setPlayer(e.target)
     e.target.playVideo();
-    setIsPlay(true)
+    dispatch(setIsTrackPlaying(true))
   }
 
   function handleClick() {
-    setIsPlay(!isPlay)
+    dispatch(setIsTrackPlaying(!isPlay))
     if (!isPlay) player.playVideo();
     else player.pauseVideo()
   }
@@ -79,16 +81,17 @@ export default function TrackSlider() {
   }
 
   function setTrackOnPlaylist(index) {
-    if (isRepeat && index === -1) dispatch(setTrack({...playlist[playlist.length - 1], country: country}))
-    if (isRepeat && index === playlist.length) dispatch(setTrack({...playlist[0], country: country}))
-    if (0 <= index && index < playlist.length) dispatch(setTrack({...playlist[index], country: country}))
+    console.log(index)
+    if (isRepeat && index === -1) dispatch(setPlayingTrack({ ...playlist[playlist.length - 1], country: country }))
+    if (isRepeat && index === playlist.length) dispatch(setPlayingTrack({ ...playlist[0], country: country }))
+    if (0 <= index && index < playlist.length) dispatch(setPlayingTrack({ ...playlist[index], country: country }))
   }
 
   function handleError() {
     const index = getIndexTrack()
     setError(`Track ${playlist[index].name} not available`)
     setTimeout(() => setError(''), 3000)
-    if (index < playlist.length) setTrackOnPlaylist(getIndexTrack() + 1)
+    if (index < playlist.length) setTrackOnPlaylist(index + 1)
   }
 
   if (!Object.keys(trackData).length) return null

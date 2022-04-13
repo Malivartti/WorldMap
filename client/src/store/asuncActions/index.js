@@ -1,13 +1,12 @@
 import { getCountry, getPlaylist } from "../../api";
-import { setPlaylist } from "../Actions";
-import { setSearchValue } from './../Actions/index';
+import { setPlayingPlaylist, setSearchQuery } from "../Actions/appValues";
 
 export const getRequestCountry = (countryId) => (dispatch) => {
   getCountry(countryId)
-  .then(json => dispatch(setSearchValue({ value: json, isFormRequest: false})))
+  .then(json => dispatch(setSearchQuery(json)))
 }
 
 export const getRequestPlaylist = (browseId) => (dispatch) =>{
   getPlaylist(browseId)
-  .then(json => dispatch(setPlaylist(json)))
+  .then(json => dispatch(setPlayingPlaylist(json)))
 }

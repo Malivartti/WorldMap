@@ -5,21 +5,16 @@ import Favorites from './Favorites';
 import PlaylistModal from './playlistModal/PlaylistModal';
 import AppHeader from './AppHeader';
 import Map from './Map';
-import { getCurrentFavoritePlaylist, getBlockedPlaylist } from './../store/selectors';
+import { getOpenPlaylistModal } from './../store/Selectors/windowDisplay';
+import { getBlocked } from './../store/Selectors/appPlaylists';
 
 
 function App() {
   const [isFavorites, setIsFavorites] = useState(false);
-  const [isSelected, setSelected] = useState(false);
+  const showPlaylistModal = useSelector(getOpenPlaylistModal)
   const [error, setError] = useState('')
-  const currentFavoritePlaylist = useSelector(getCurrentFavoritePlaylist)
-  const blockedPlaylists = useSelector(getBlockedPlaylist)
+  const blockedPlaylists = useSelector(getBlocked)
 
-  useEffect(() => {
-    if (typeof currentFavoritePlaylist === 'string' || currentFavoritePlaylist !== null) {
-      setSelected(true)
-    }
-  }, [currentFavoritePlaylist])
 
   useEffect(() => {
     if (blockedPlaylists.length) {
@@ -31,14 +26,14 @@ function App() {
 
   return (
     <div className="App">
-      {isFavorites && <Favorites closeFavorites={setIsFavorites}/>}
+      {isFavorites && <Favorites />}
       <div className="main">
         <h2 className={`track-slider__modal ${error ? 'visible' : ''}`}>{error}</h2>
-        <AppHeader handle={{ isFavorites, isSelected, setIsFavorites, setSelected }} />
-        <Map setSelected={setSelected} />
+        <AppHeader  isFavorites={isFavorites} setIsFavorites={setIsFavorites}  />
+        <Map />
         <TrackSlider setError={setError} />
       </div>
-      {isSelected && <PlaylistModal />}
+      {showPlaylistModal && <PlaylistModal />}
     </div>
   );
 };

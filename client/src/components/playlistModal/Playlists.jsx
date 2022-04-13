@@ -1,15 +1,17 @@
 import React from 'react';
 import PlaylistItem from './PlaylistItem'
 import { getImageUrl } from '../../helper/index';
-import { useSelector } from 'react-redux';
-import { getBlockedPlaylist } from '../../store/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { showTracks } from './../../store/Actions/windowDisplay';
+import { getBlocked } from './../../store/Selectors/appPlaylists';
 
 
-export default function Playlists({ playlists, title, isLoading, setShowPlaylists, setPlaylistId, setPlaylist }) {
-  const blockedPlaylists = useSelector(getBlockedPlaylist)
+export default function Playlists({ playlists, title, isLoading, setPlaylistId, setPlaylist }) {
+  const blockedPlaylists = useSelector(getBlocked)
+  const dispatch = useDispatch()
 
   function getPlaylistTracks(id) {
-    setShowPlaylists(false);
+    dispatch(showTracks())
     setPlaylistId(id)
     setPlaylist(null)
   }

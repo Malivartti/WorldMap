@@ -1,40 +1,36 @@
-import React, { useMemo, useEffect } from 'react'
-import image from '../img/GettyImages-1329515378.jpg';
+import React, { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { getFavoritePlaylists, getFavoriteTracks } from '../store/selectors';
+import image from '../img/GettyImages-1329515378.jpg';
+import { getFavoritePlaylists } from '../store/Selectors/appPlaylists';
 import Playlists from './playlistModal/Playlists';
-import { setCurrentFavoritePlaylist } from '../store/Actions';
-import { getCurrentFavoritePlaylist } from './../store/selectors';
+import { getFavoriteTracks } from './../store/Selectors/appPlaylists';
+import { setPlayingPlaylist } from '../store/Actions/appValues';
+
 
 export function Favorites() {
-  const playlists = useSelector(getFavoritePlaylists)
-  const tracks = useSelector(getFavoriteTracks)
-  const currentPlaylist = useSelector(getCurrentFavoritePlaylist)
-  const tracksPlaylist = useMemo(() => ({
+  const favoritePlaylists = useSelector(getFavoritePlaylists)
+  const favoriteTracks = useSelector(getFavoriteTracks)
+  const favoriteTracksPlaylist = useMemo(() => ({
     owner: 'You',
-    title: 'Your Favorite Tracks',
+    title: 'My Favorite Tracks',
     dateYear: '2022',
     thumbnails: { url: image },
-    trackCount: tracks.length,
-    content: tracks,
-  }), [tracks])
+    trackCount: favoriteTracks.length,
+    content: favoriteTracks,
+  }), [favoriteTracks])
   
   const dispatch = useDispatch()
 
   function setFavoritePlaylist(value) {
-    dispatch(setCurrentFavoritePlaylist(value))
+    dispatch(setPlayingPlaylist(value))
   }
-
-  useEffect(() => {
-    if (currentPlaylist !== null && typeof currentPlaylist === 'object') dispatch(setCurrentFavoritePlaylist(tracksPlaylist))
-  }, [dispatch, currentPlaylist, tracksPlaylist])
 
   return (
     <div className="favorites">
       <h2 className='title'>Favorite tracks</h2>
-      <img src={image} alt="" className="playlist-my__img" onClick={() => setFavoritePlaylist(tracksPlaylist)} />
+      <img src={image} alt="" className="playlist-my__img" onClick={() => setFavoritePlaylist(favoriteTracksPlaylist)} />
       <Playlists
-        playlists={playlists}
+        playlists={favoritePlaylists}
         title='Favorite Playlists'
         isLoading={false}
         setShowPlaylists={() => undefined}
