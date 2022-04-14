@@ -6,7 +6,6 @@ export function useCountryName(trackData){
   const [country, setCountry] = useState('');
   const searchQuery = useSelector(getSearchQuery);
 
-
   useEffect(() => {
     setCountry(searchQuery);
   }, [trackData])

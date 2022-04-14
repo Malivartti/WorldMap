@@ -5,20 +5,20 @@ import PlaylistHeader from './PlaylistHeader';
 import { getPlaylist } from '../../api'
 import { useCountryName } from '../../hooks/useCountryName';
 import { setPlayingTrack, setPlayingPlaylist } from './../../store/Actions/appValues';
-import { getPlayingPlaylist } from '../../store/Selectors/appValues';
+import { getPlayingPlaylist, getChosenPlaylist } from '../../store/Selectors/appValues';
 import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
+import { setChosenPlaylist } from './../../store/Actions/appValues';
 
-
-export default function PlaylistTracks({ playlistId, playlist }) {
-  const [currentPlaylist, setCurrentPlaylist] = useState({})
+export default function PlaylistTracks({ playlistId }) {
+  const chosenPlaylist = useSelector(getChosenPlaylist);
   const [isLoading, setIsLoading] = useState(false);
   const storePlaylist = useSelector(getPlayingPlaylist);
-  const country = useCountryName(currentPlaylist);
+  const country = useCountryName(playlistId);
   const dispatch = useDispatch();
 
   function handleClick(track) {
-    if (currentPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(currentPlaylist))
+    if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
     dispatch(setPlayingTrack({ ...track, country: country }))
   }
 
@@ -28,21 +28,18 @@ export default function PlaylistTracks({ playlistId, playlist }) {
   }
 
   useEffect(() => {
-    if (!playlist) {
-      const timerId = setTimeout(() => blockPlaylist(playlistId), 5000)
-      setCurrentPlaylist({})
+      // if (chosenPlaylist.owner === "You") return;
+
+      const timerId = setTimeout(() => blockPlaylist(playlistId), 5000);
       setIsLoading(true)
       getPlaylist(playlistId)
         .then(res => {
           clearTimeout(timerId)
-          setIsLoading(false)
-          setCurrentPlaylist(res)
+          setIsLoading(false);
+          dispatch(setChosenPlaylist(res));
         })
         .catch(console.log)
-    } else {
-      setCurrentPlaylist(playlist)
-    }
-  }, [playlist, playlistId])
+  }, [playlistId])
 
   return (
     <>
@@ -55,11 +52,11 @@ export default function PlaylistTracks({ playlistId, playlist }) {
           ? <div className='lds-ring'>
             <div></div>
           </div>
-          : (!Object.keys(currentPlaylist).length)
+          : (!Object.keys(chosenPlaylist).length)
             ? <h3>Not found</h3>
             : <>
-              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick} playlistId={playlistId} />
-              {currentPlaylist?.content?.map((track, index) => {
+              <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={playlistId} />
+              {chosenPlaylist?.content?.map((track, index) => {
                 return <Track
                   key={index}
                   trackData={track}

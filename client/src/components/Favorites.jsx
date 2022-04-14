@@ -4,7 +4,7 @@ import image from '../img/GettyImages-1329515378.jpg';
 import { getFavoritePlaylists } from '../store/Selectors/appPlaylists';
 import Playlists from './playlistModal/Playlists';
 import { getFavoriteTracks } from './../store/Selectors/appPlaylists';
-import { setPlayingPlaylist } from '../store/Actions/appValues';
+import { setChosenPlaylist } from '../store/Actions/appValues';
 import { openPlaylistModal, showTracks } from '../store/Actions/windowDisplay';
 
 export function Favorites() {
@@ -23,7 +23,7 @@ export function Favorites() {
   const dispatch = useDispatch()
 
   function setFavoritePlaylist(value) {
-    dispatch(setPlayingPlaylist(value))
+    dispatch(setChosenPlaylist(value))
   }
 
   return (
@@ -33,16 +33,14 @@ export function Favorites() {
         setFavoritePlaylist(favoriteTracksPlaylist);
         dispatch(openPlaylistModal())
         dispatch(showTracks())
-        
+
         console.log("playlist clicked")
         }} />
       <Playlists
         playlists={favoritePlaylists}
         title='Favorite Playlists'
         isLoading={false}
-        setShowPlaylists={() => undefined}
         setPlaylistId={setFavoritePlaylist}
-        setPlaylist={() => undefined}
       />
     </div>
   )

@@ -4,16 +4,19 @@ import { getImageUrl } from '../../helper/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { showTracks } from './../../store/Actions/windowDisplay';
 import { getBlocked } from './../../store/Selectors/appPlaylists';
+import { getChosenPlaylist } from '../../store/Selectors/appValues';
 
-
-export default function Playlists({ playlists, title, isLoading, setPlaylistId, setPlaylist }) {
+export default function Playlists({ playlists, title, isLoading, setPlaylistId, playlistId}) {
   const blockedPlaylists = useSelector(getBlocked)
+  const chosenPlaylist = useSelector(getChosenPlaylist)
   const dispatch = useDispatch()
 
   function getPlaylistTracks(id) {
     dispatch(showTracks())
+    // if (typeof chosenPlaylist === "string") setPlaylistId(chosenPlaylist);
     setPlaylistId(id)
-    setPlaylist(null)
+    console.log(chosenPlaylist)
+    console.log(playlistId)
   }
 
   return (
@@ -32,7 +35,7 @@ export default function Playlists({ playlists, title, isLoading, setPlaylistId, 
                 name={playlist.title}
                 image={getImageUrl(playlist)}
                 showPlaylistTracks={() => {
-                  getPlaylistTracks(playlist.browseId)
+                  getPlaylistTracks(playlist.browseId);
                 }}
               />
             )
