@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
 import { useCountryName } from '../../hooks/useCountryName';
-import { setPlayingTrack, setPlayingPlaylist } from './../../store/Actions/appValues';
 import { getPlayingPlaylist, getChosenPlaylist, getLoadingStatus } from '../../store/Selectors/appValues';
+import { setPlayingTrack, setPlayingPlaylist } from './../../store/Actions/appValues';
 import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
+
 
 export default function PlaylistTracks({ playlistId }) {
   const chosenPlaylist = useSelector(getChosenPlaylist);
@@ -19,6 +20,12 @@ export default function PlaylistTracks({ playlistId }) {
     if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
     dispatch(setPlayingTrack({ ...track, country: country }))
   }
+
+  useEffect(() => {
+    const timeId = setTimeout(() => blockPlaylist(playlistId), 5000);
+    if (loadingStatus === 'idle') clearTimeout(timeId)
+    return () => clearTimeout(timeId)
+  }, [playlistId, loadingStatus])
 
   function blockPlaylist(id) {
     dispatch(showPlaylist())
@@ -36,19 +43,20 @@ export default function PlaylistTracks({ playlistId }) {
           ? <div className='lds-ring'>
             <div></div>
           </div>
-          : (!Object.keys(chosenPlaylist).length)
-            ? <h3>Not found</h3>
-            : <>
-              <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={playlistId} />
-              {chosenPlaylist?.content?.map((track, index) => {
+          : <>
+            <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={playlistId} />
+            {!chosenPlaylist?.content.length
+              ? <h3>Not Found</h3>
+              :
+              chosenPlaylist?.content?.map((track, index) => {
                 return <Track
                   key={index}
                   trackData={track}
                   handleClick={handleClick}
                 />
               })
-              }
-            </>
+            }
+          </>
         }
       </div>
     </>

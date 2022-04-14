@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import YouTube from 'react-youtube';
-import { ReactComponent as LikeBtn } from '../img/like.svg'
-import arrowRightBtn from '../img/arrow-right.svg'
-import arrowLeftBtn from '../img/arrow-left.svg'
-import { ReactComponent as VidoBtn } from '../img/open-video.svg'
-import { ReactComponent as RepeatBtn } from '../img/playback-repeat_1.svg'
-import playBtn from '../img/play.svg'
-import stopBtn from '../img/stop.svg'
-
 import { formatTime, getImageUrl, isFavorite } from './../helper/index';
 import { useCountryName } from '../hooks/useCountryName';
 import { getPlayingTrack, getPlayingPlaylist, getIsTrackPlaying } from '../store/Selectors/appValues';
 import { getFavoriteTracks } from './../store/Selectors/appPlaylists';
 import { setPlayingTrack, setIsTrackPlaying } from './../store/Actions/appValues';
 import { addFavoriteTrack, removeFavoriteTrack } from '../store/Actions/appPlaylists';
+
+import { ReactComponent as LikeBtn } from '../img/like.svg'
+import { ReactComponent as VidoBtn } from '../img/open-video.svg'
+import { ReactComponent as RepeatBtn } from '../img/playback-repeat_1.svg'
+import arrowRightBtn from '../img/arrow-right.svg'
+import arrowLeftBtn from '../img/arrow-left.svg'
+import playBtn from '../img/play.svg'
+import stopBtn from '../img/stop.svg'
+
 
 const opts = {
   height: '525',
@@ -26,7 +27,7 @@ const opts = {
   }
 }
 
-export default function TrackSlider() {
+export default function TrackSlider({setError}) {
   const trackData = useSelector(getPlayingTrack);
   const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
   const playlist = useSelector(getPlayingPlaylist).content;
@@ -38,8 +39,6 @@ export default function TrackSlider() {
   const [isRepeat, setIsRepeat] = useState(false)
   const country = useCountryName(trackData);
   const dispatch = useDispatch()
-  const [error, setError] = useState('')
-
 
   useEffect(() => {
     dispatch(setIsTrackPlaying(isPlay))
@@ -81,7 +80,6 @@ export default function TrackSlider() {
   }
 
   function setTrackOnPlaylist(index) {
-    console.log(index)
     if (isRepeat && index === -1) dispatch(setPlayingTrack({ ...playlist[playlist.length - 1], country: country }))
     if (isRepeat && index === playlist.length) dispatch(setPlayingTrack({ ...playlist[0], country: country }))
     if (0 <= index && index < playlist.length) dispatch(setPlayingTrack({ ...playlist[index], country: country }))
@@ -106,8 +104,6 @@ export default function TrackSlider() {
           onError={handleError}
         />
       </div>
-
-      <h2 className={`track-slider__modal ${error ? 'visible' : ''}`}>{error}</h2>
 
       <div className="track-slider">
         <div className='track-slider__info'>

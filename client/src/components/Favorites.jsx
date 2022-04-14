@@ -1,15 +1,18 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import image from '../img/GettyImages-1329515378.jpg';
-import { getFavoritePlaylists } from '../store/Selectors/appPlaylists';
 import Playlists from './playlistModal/Playlists';
+import { getFavoritePlaylists } from '../store/Selectors/appPlaylists';
+import { getChosenPlaylist } from '../store/Selectors/appValues';
 import { getFavoriteTracks } from './../store/Selectors/appPlaylists';
 import { setChosenPlaylist } from '../store/Actions/appValues';
 import { openPlaylistModal, showTracks } from '../store/Actions/windowDisplay';
 
+
 export function Favorites() {
   const favoritePlaylists = useSelector(getFavoritePlaylists)
   const favoriteTracks = useSelector(getFavoriteTracks)
+  const chosenPlaylist = useSelector(getChosenPlaylist)
 
   const favoriteTracksPlaylist = useMemo(() => ({
     owner: 'You',
@@ -26,16 +29,22 @@ export function Favorites() {
     dispatch(setChosenPlaylist(value))
   }
 
+  function showFavoritePlaylist() {
+    setFavoritePlaylist(favoriteTracksPlaylist);
+    dispatch(openPlaylistModal())
+    dispatch(showTracks())
+  }
+
+  useEffect(() => {
+    if (chosenPlaylist.owner === 'You' && chosenPlaylist.title === 'My Favorite Tracks') {
+      setFavoritePlaylist(favoriteTracksPlaylist)
+    }
+  }, [dispatch, favoriteTracks])
+
   return (
     <div className="favorites">
       <h2 className='title'>Favorite tracks</h2>
-      <img src={image} alt="" className="playlist-my__img" onClick={() => {
-        setFavoritePlaylist(favoriteTracksPlaylist);
-        dispatch(openPlaylistModal())
-        dispatch(showTracks())
-
-        console.log("playlist clicked")
-        }} />
+      <img src={image} alt="" className="playlist-my__img" onClick={showFavoritePlaylist} />
       <Playlists
         playlists={favoritePlaylists}
         title='Favorite Playlists'

@@ -17,7 +17,6 @@ function Map() {
   function handleClick(e) {
     dispatch(openPlaylistModal())
     dispatch(showPlaylist())
-    console.log(e.target.id)
     dispatch(getRequestCountry(e.target.id));
   }
 
@@ -47,8 +46,8 @@ function Map() {
         onLocationClick={handleClick}
         onLocationMouseOver={(e) => onFocus(e.target.id)}
         onLocationMouseOut={() => setFocusCountryName('')}
-        onLocationFocus={e => selectCountry(e.target)} 
-        />
+        onLocationFocus={e => selectCountry(e.target)}
+      />
     </div>
   )
 }
