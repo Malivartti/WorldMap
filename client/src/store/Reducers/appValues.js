@@ -1,11 +1,10 @@
 import { ACTIONS } from './../Actions/appValues';
 
-
 const defaultState = {
   searchQuery: '',
   playingTrack: {},
   playingPlaylist: {},
-  chosenPlaylist: {},
+  chosenPlaylist: { status: 'idle', playlist: {}},
   isTrackPlaying: false,
 };
 
@@ -17,8 +16,10 @@ export const appValues = (state = defaultState, action) => {
       return { ...state, playingTrack: action.payload };
     case ACTIONS.SET_PLAYING_PLAYLIST:
       return { ...state, playingPlaylist: action.payload };
+    case ACTIONS.CHOSEN_PLAYLIST_LOADING: 
+      return {...state, chosenPlaylist: {...state.chosenPlaylist, status: 'loading'}}
     case ACTIONS.SET_CHOSEN_PLAYLIST:
-      return { ...state, chosenPlaylist: action.payload };
+      return { ...state, chosenPlaylist: { status: 'idle', playlist: action.payload} };
     case ACTIONS.SET_IS_TRACK_PLAYING:
       return { ...state, isTrackPlaying: action.payload };
     default:

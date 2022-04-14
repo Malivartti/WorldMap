@@ -17,6 +17,7 @@ function Map() {
   function handleClick(e) {
     dispatch(openPlaylistModal())
     dispatch(showPlaylist())
+    console.log(e.target.id)
     dispatch(getRequestCountry(e.target.id));
   }
 

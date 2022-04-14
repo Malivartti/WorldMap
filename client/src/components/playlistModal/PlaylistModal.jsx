@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getSearch } from '../../api';
 import Playlists from './Playlists'
 import PlaylistTracks from './PlaylistTracks'
 import { getShowPlaylists } from '../../store/Selectors/windowDisplay';
-import { getSearchQuery, getChosenPlaylist } from './../../store/Selectors/appValues';
+import { getSearchQuery } from './../../store/Selectors/appValues';
 
 export default function PlaylistModal() {
     const showPlaylists = useSelector(getShowPlaylists);
-    const chosenPlaylist = useSelector(getChosenPlaylist)
     const searchQuery = useSelector(getSearchQuery);
 
     const [playlistId, setPlaylistId] = useState('')
