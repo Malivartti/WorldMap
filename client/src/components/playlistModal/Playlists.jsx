@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PlaylistItem from './PlaylistItem'
 import { getImageUrl } from '../../helper/index';
 import { useSelector, useDispatch } from 'react-redux';
-import { showTracks } from './../../store/Actions/windowDisplay';
+import { showTracks, openPlaylistModal, showPlaylist } from './../../store/Actions/windowDisplay';
+import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { getBlocked } from './../../store/Selectors/appPlaylists';
+import { getChosenPlaylist } from '../../store/Selectors/appValues';
+import { getRequestPlaylist } from '../../store/asuncActions/index'
 
-
-export default function Playlists({ playlists, title, isLoading, setPlaylistId, setPlaylist }) {
+export default function Playlists({ playlists, title, isLoading, setPlaylistId }) {
   const blockedPlaylists = useSelector(getBlocked)
+  const chosenPlaylist = useSelector(getChosenPlaylist)
   const dispatch = useDispatch()
 
   function getPlaylistTracks(id) {
+    dispatch(openPlaylistModal())
     dispatch(showTracks())
+    console.log(playlists)
     setPlaylistId(id)
-    setPlaylist(null)
+    dispatch(getRequestPlaylist(id));
+    if (blockedPlaylists.includes(id)) showPlaylist();
+    console.log(id)
+    console.log(chosenPlaylist)
+  }
+
+  function blockPlaylist(id) {
+    dispatch(showPlaylist())
+    dispatch(addBlockPlaylist(id))
   }
 
   return (
@@ -32,7 +45,8 @@ export default function Playlists({ playlists, title, isLoading, setPlaylistId, 
                 name={playlist.title}
                 image={getImageUrl(playlist)}
                 showPlaylistTracks={() => {
-                  getPlaylistTracks(playlist.browseId)
+                  console.log(playlist.browseId)
+                  getPlaylistTracks(playlist.browseId);
                 }}
               />
             )

@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
-import { getPlaylist } from '../../api'
 import { useCountryName } from '../../hooks/useCountryName';
 import { setPlayingTrack, setPlayingPlaylist } from './../../store/Actions/appValues';
-import { getPlayingPlaylist } from '../../store/Selectors/appValues';
+import { getPlayingPlaylist, getChosenPlaylist, getLoadingStatus } from '../../store/Selectors/appValues';
 import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
 
-
-export default function PlaylistTracks({ playlistId, playlist }) {
-  const [currentPlaylist, setCurrentPlaylist] = useState({})
-  const [isLoading, setIsLoading] = useState(false);
+export default function PlaylistTracks({ playlistId }) {
+  const chosenPlaylist = useSelector(getChosenPlaylist);
   const storePlaylist = useSelector(getPlayingPlaylist);
-  const country = useCountryName(currentPlaylist);
+  const loadingStatus = useSelector(getLoadingStatus)
+  const country = useCountryName(playlistId);
   const dispatch = useDispatch();
 
   function handleClick(track) {
-    if (currentPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(currentPlaylist))
+    if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
     dispatch(setPlayingTrack({ ...track, country: country }))
   }
 
@@ -27,23 +25,6 @@ export default function PlaylistTracks({ playlistId, playlist }) {
     dispatch(addBlockPlaylist(id))
   }
 
-  useEffect(() => {
-    if (!playlist) {
-      const timerId = setTimeout(() => blockPlaylist(playlistId), 5000)
-      setCurrentPlaylist({})
-      setIsLoading(true)
-      getPlaylist(playlistId)
-        .then(res => {
-          clearTimeout(timerId)
-          setIsLoading(false)
-          setCurrentPlaylist(res)
-        })
-        .catch(console.log)
-    } else {
-      setCurrentPlaylist(playlist)
-    }
-  }, [playlist, playlistId])
-
   return (
     <>
       <button
@@ -51,15 +32,15 @@ export default function PlaylistTracks({ playlistId, playlist }) {
         onClick={() => dispatch(showPlaylist())}
       ></button>
       <div className='playlist__tracks'>
-        {isLoading
+        {loadingStatus === "loading"
           ? <div className='lds-ring'>
             <div></div>
           </div>
-          : (!Object.keys(currentPlaylist).length)
+          : (!Object.keys(chosenPlaylist).length)
             ? <h3>Not found</h3>
             : <>
-              <PlaylistHeader playlist={currentPlaylist} handleClick={handleClick} playlistId={playlistId} />
-              {currentPlaylist?.content?.map((track, index) => {
+              <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={playlistId} />
+              {chosenPlaylist?.content?.map((track, index) => {
                 return <Track
                   key={index}
                   trackData={track}
