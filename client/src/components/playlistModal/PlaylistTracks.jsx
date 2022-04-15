@@ -18,7 +18,7 @@ export default function PlaylistTracks({ playlistId }) {
 
   function handleClick(track) {
     if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
-    dispatch(setPlayingTrack({ ...track, country: country }))
+    dispatch(setPlayingTrack({ ...track, country: country, currentTime: 0 }))
   }
 
   useEffect(() => {

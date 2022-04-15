@@ -24,7 +24,7 @@ export default function Track({ trackData, handleClick }) {
 
   function manageFavorite() {
     if (isTrackFavorite) dipatch(removeFavoriteTrack(trackData.videoId))
-    else dipatch(addFavoriteTrack({...trackData, country: country}))
+    else dipatch(addFavoriteTrack({ ...trackData, country: country }))
   }
 
   return (
@@ -35,7 +35,7 @@ export default function Track({ trackData, handleClick }) {
         <div className="song__author">{trackData.author.name}</div>
         {trackData.country && <div className="song_country">{trackData.country}</div>}
       </div>
-      <div className="song__duration">{formatTime('milliseconds', trackData.duration)}</div>
+      <div className="song__duration">{formatTime(trackData.duration / 1000)}</div>
       <button className="song__btn-favorites btn-reset" onClick={manageFavorite}>
         <LikeBtn fill={isTrackFavorite ? 'red' : 'black'} />
       </button>

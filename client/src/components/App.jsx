@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import TrackSlider from './TrackSlider/TrackSlider';
 import Favorites from './Favorites';
@@ -12,17 +12,17 @@ import { getBlocked } from './../store/Selectors/appPlaylists';
 function App() {
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [error, setError] = useState('');
-
   const blockedPlaylists = useSelector(getBlocked)
   const showPlaylistModal = useSelector(getOpenPlaylistModal)
+  const firstLaunch = useRef(true)
 
   useEffect(() => {
-    if (blockedPlaylists.length) {
+    if (blockedPlaylists.length && !firstLaunch.current) {
       setError('Playlist is not available')
       setTimeout(() => setError(''), 3000)
     }
+    firstLaunch.current = false
   }, [blockedPlaylists])
-
 
   return (
     <div className="App">

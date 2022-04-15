@@ -23,6 +23,8 @@ export const appValues = (state = defaultState, action) => {
       return { ...state, chosenPlaylist: { status: 'idle', playlist: action.payload} };
     case ACTIONS.SET_IS_TRACK_PLAYING:
       return { ...state, isTrackPlaying: action.payload };
+    case ACTIONS.SET_CURRENT_TRACK_TIME:
+      return { ...state, playingTrack: { ...state.playingTrack, currentTime: action.payload}};
     default:
       return state;
   };

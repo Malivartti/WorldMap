@@ -10,20 +10,20 @@ import Soundtrack from './Soundtrack';
 import Video from './Video';
 
 export default function TrackSlider({setError}) {
-  const trackData = useSelector(getPlayingTrack);
-  const playlist = useSelector(getPlayingPlaylist).content;
-  const country = useCountryName(trackData);
-  
+  const playingTrack = useSelector(getPlayingTrack);
+  const playingPlaylist = useSelector(getPlayingPlaylist).content;
+  const trackCountry = useCountryName(playingTrack);
   const dispatch = useDispatch()
 
   const [player, setPlayer] = useState(null)
   const [volume, setVolume] = useState(50)
-  const [isShow, setIsShow] = useState(false)
-  const [isRepeat, setIsRepeat] = useState(false)
+  const [isShowVideo, setIsShow] = useState(false)
+  const [isRepeatPlaylist, setIsRepeat] = useState(false)
   
   function onReady(e) {
     setPlayer(e.target)
     e.target.playVideo();
+    e.target.setVolume(volume)
     dispatch(setIsTrackPlaying(true))
   }
 
@@ -33,40 +33,40 @@ export default function TrackSlider({setError}) {
   }
   
   function getIndexTrack() {
-    return playlist?.findIndex(track => track.videoId === trackData.videoId)
+    return playingPlaylist?.findIndex(track => track.videoId === playingTrack.videoId)
   }
 
   function setTrackOnPlaylist(index) {
-    if (isRepeat && index === -1) {
-      dispatch(setPlayingTrack({ ...playlist[playlist.length - 1], country: country }))
+    if (isRepeatPlaylist && index === -1) {
+      dispatch(setPlayingTrack({ ...playingPlaylist[playingPlaylist.length - 1], country: trackCountry }))
     }
-    if (isRepeat && index === playlist.length) {
-      dispatch(setPlayingTrack({ ...playlist[0], country: country }))
+    if (isRepeatPlaylist && index === playingPlaylist.length) {
+      dispatch(setPlayingTrack({ ...playingPlaylist[0], country: trackCountry }))
     }
-    if (0 <= index && index < playlist.length) {
-      dispatch(setPlayingTrack({ ...playlist[index], country: country }))
+    if (0 <= index && index < playingPlaylist.length) {
+      dispatch(setPlayingTrack({ ...playingPlaylist[index], country: trackCountry }))
     }
   }
 
 
-  if (!Object.keys(trackData).length) return null
+  if (!Object.keys(playingTrack).length) return null
   return (
     <>
       <Video
-        trackData={trackData}
+        trackData={playingTrack}
         onReady={onReady}
         setError={setError}
         setTrackOnPlaylist={setTrackOnPlaylist}
         getIndexTrack={getIndexTrack}
-        isShow={isShow}
+        isShow={isShowVideo}
       />
       <div className="track-slider">
         <div className='track-slider__info'>
-          <TrackInfo trackData={trackData}/>
+          <TrackInfo trackData={playingTrack}/>
           <InfoBtns 
-            isShow={isShow} 
+            isShow={isShowVideo} 
             setIsShow={setIsShow} 
-            isRepeat={isRepeat} 
+            isRepeat={isRepeatPlaylist} 
             setIsRepeat={setIsRepeat}/>
         </div>
         <div className='track-slider__control'>
@@ -76,7 +76,8 @@ export default function TrackSlider({setError}) {
             player={player}
           />
           <Soundtrack 
-            trackData={trackData}
+            dispatch={dispatch}
+            trackData={playingTrack}
             player={player}
           />
         </div>

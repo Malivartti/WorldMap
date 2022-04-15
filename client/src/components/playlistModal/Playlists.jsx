@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PlaylistItem from './PlaylistItem'
 import { getImageUrl } from '../../helper/index';
 import { useSelector, useDispatch } from 'react-redux';
-import { showTracks, showPlaylist } from './../../store/Actions/windowDisplay';
-import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
+import { showTracks } from './../../store/Actions/windowDisplay';
 import { getBlocked } from './../../store/Selectors/appPlaylists';
 import { getRequestPlaylist } from '../../store/asuncActions/index'
 
@@ -16,11 +15,6 @@ export default function Playlists({ playlists, title, isLoading, setPlaylistId }
     dispatch(showTracks())
     setPlaylistId(id)
     dispatch(getRequestPlaylist(id));
-  }
-
-  function blockPlaylist(id) {
-    dispatch(showPlaylist())
-    dispatch(addBlockPlaylist(id))
   }
 
   return (
