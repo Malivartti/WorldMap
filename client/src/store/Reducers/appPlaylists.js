@@ -1,11 +1,12 @@
 import { ACTIONS } from "../Actions/appPlaylists";
 
-
-const defaultState = {
+const stateFromStorage = JSON.parse(localStorage.getItem('playlists'))
+const defaultState = stateFromStorage || {
   favoriteTracks: [],
   favoritePlaylists: [],
   blocked: [],
 };
+
 
 export const appPlaylists = (state = defaultState, action) => {
   switch (action.type) {

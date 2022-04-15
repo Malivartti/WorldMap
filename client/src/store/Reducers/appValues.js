@@ -1,6 +1,7 @@
 import { ACTIONS } from './../Actions/appValues';
 
-const defaultState = {
+const stateFromStorage = JSON.parse(localStorage.getItem('values'))
+const defaultState = stateFromStorage || {
   searchQuery: '',
   playingTrack: {},
   playingPlaylist: {},

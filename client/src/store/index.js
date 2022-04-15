@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { appValues } from './Reducers/appValues';
 import { appPlaylists } from './Reducers/appPlaylists';
 import { windowDisplay } from './Reducers/windowDisplay';
+import { savingStore } from './Middlewares/savingStore';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
@@ -11,4 +12,4 @@ const rootReducer = combineReducers({
   windowDisplay
 });
 
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, savingStore)))

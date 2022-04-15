@@ -13,6 +13,7 @@ export function Favorites() {
   const favoritePlaylists = useSelector(getFavoritePlaylists)
   const favoriteTracks = useSelector(getFavoriteTracks)
   const chosenPlaylist = useSelector(getChosenPlaylist)
+  const dispatch = useDispatch()
 
   const favoriteTracksPlaylist = useMemo(() => ({
     owner: 'You',
@@ -23,33 +24,28 @@ export function Favorites() {
     content: favoriteTracks,
   }), [favoriteTracks])
   
-  const dispatch = useDispatch()
 
-  function setFavoritePlaylist(value) {
-    dispatch(setChosenPlaylist(value))
-  }
-
-  function showFavoritePlaylist() {
-    setFavoritePlaylist(favoriteTracksPlaylist);
+  function showFavoritePlaylist(value) {
+    dispatch(setChosenPlaylist(value));
     dispatch(openPlaylistModal())
     dispatch(showTracks())
   }
 
   useEffect(() => {
     if (chosenPlaylist.owner === 'You' && chosenPlaylist.title === 'My Favorite Tracks') {
-      setFavoritePlaylist(favoriteTracksPlaylist)
+      dispatch(setChosenPlaylist(favoriteTracksPlaylist))
     }
   }, [dispatch, favoriteTracks])
 
   return (
     <div className="favorites">
       <h2 className='title'>Favorite tracks</h2>
-      <img src={image} alt="" className="playlist-my__img" onClick={showFavoritePlaylist} />
+      <img src={image} alt="" className="playlist-my__img" onClick={() => showFavoritePlaylist(favoriteTracksPlaylist)} />
       <Playlists
         playlists={favoritePlaylists}
         title='Favorite Playlists'
         isLoading={false}
-        setPlaylistId={setFavoritePlaylist}
+        setPlaylistId={showFavoritePlaylist}
       />
     </div>
   )
