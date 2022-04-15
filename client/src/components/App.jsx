@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import TrackSlider from './TrackSlider';
+import TrackSlider from './TrackSlider/TrackSlider';
 import Favorites from './Favorites';
 import PlaylistModal from './playlistModal/PlaylistModal';
 import AppHeader from './AppHeader';
