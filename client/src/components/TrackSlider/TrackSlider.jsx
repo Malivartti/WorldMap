@@ -1,37 +1,26 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useCountryName } from '../../hooks/useCountryName';
-import { getPlayingTrack, getPlayingPlaylist } from '../../store/Selectors/appValues';
-import { setPlayingTrack, setIsTrackPlaying } from '../../store/Actions/appValues';
+import { getPlayingTrack, getPlayingPlaylist, getTrackVolume } from '../../store/Selectors/appValues';
+import { setPlayingTrack } from '../../store/Actions/appValues';
 import TrackInfo from './TrackInfo';
 import InfoBtns from './InfoBtns';
 import ControlBtns from './ControlBtns';
 import Soundtrack from './Soundtrack';
 import Video from './Video';
+import TrackVolume from './TrackVolume';
 
-export default function TrackSlider({setError}) {
+export default function TrackSlider({ setError }) {
   const playingTrack = useSelector(getPlayingTrack);
   const playingPlaylist = useSelector(getPlayingPlaylist).content;
   const trackCountry = useCountryName(playingTrack);
+  const volume = useSelector(getTrackVolume)
   const dispatch = useDispatch()
 
   const [player, setPlayer] = useState(null)
-  const [volume, setVolume] = useState(50)
-  const [isShowVideo, setIsShow] = useState(false)
-  const [isRepeatPlaylist, setIsRepeat] = useState(false)
-  
-  function onReady(e) {
-    setPlayer(e.target)
-    e.target.playVideo();
-    e.target.setVolume(volume)
-    dispatch(setIsTrackPlaying(true))
-  }
+  const [isShowVideo, setIsShowVideo] = useState(false)
+  const [isRepeatPlaylist, setIsRepeatPlaylist] = useState(false)
 
-  function handleVolume(e) {
-    player.setVolume(e.target.value)
-    setVolume(e.target.value)
-  }
-  
   function getIndexTrack() {
     return playingPlaylist?.findIndex(track => track.videoId === playingTrack.videoId)
   }
@@ -53,35 +42,41 @@ export default function TrackSlider({setError}) {
   return (
     <>
       <Video
+        dispatch={dispatch}
         trackData={playingTrack}
-        onReady={onReady}
+        volume={volume}
         setError={setError}
+        setPlayer={setPlayer}
+        isShowVideo={isShowVideo}
         setTrackOnPlaylist={setTrackOnPlaylist}
         getIndexTrack={getIndexTrack}
-        isShow={isShowVideo}
       />
       <div className="track-slider">
         <div className='track-slider__info'>
-          <TrackInfo trackData={playingTrack}/>
-          <InfoBtns 
-            isShow={isShowVideo} 
-            setIsShow={setIsShow} 
-            isRepeat={isRepeatPlaylist} 
-            setIsRepeat={setIsRepeat}/>
+          <TrackInfo trackData={playingTrack} />
+          <InfoBtns
+            isShowVideo={isShowVideo}
+            setIsShowVideo={setIsShowVideo}
+            isRepeatPlaylist={isRepeatPlaylist}
+            setIsRepeat={setIsRepeatPlaylist} />
         </div>
         <div className='track-slider__control'>
-          <ControlBtns 
+          <ControlBtns
             setTrackOnPlaylist={setTrackOnPlaylist}
             getIndexTrack={getIndexTrack}
             player={player}
           />
-          <Soundtrack 
+          <Soundtrack
             dispatch={dispatch}
             trackData={playingTrack}
             player={player}
           />
         </div>
-        <input className='track-slider__volume' type="range" min="0" max="100" value={volume} onInput={handleVolume} />
+        <TrackVolume
+          dispatch={dispatch}
+          player={player}
+          volume={volume}
+        />
       </div>
     </>
   )

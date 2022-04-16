@@ -5,3 +5,4 @@ export const getChosenPlaylist =  (state) => (state.appValues.chosenPlaylist.pla
 export const getLoadingStatus = (state) => (state.appValues.chosenPlaylist.status)
 export const getIsTrackPlaying = (state) => (state.appValues.isTrackPlaying);
 export const getCurrentTrackTime = (state) => (state.appValues.playingTrack.currentTime);
+export const getTrackVolume = (state) => (state.appValues.trackVolume);

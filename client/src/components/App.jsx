@@ -17,7 +17,7 @@ function App() {
   const firstLaunch = useRef(true)
 
   useEffect(() => {
-    if (blockedPlaylists.length && !firstLaunch.current) {
+    if (!firstLaunch.current) {
       setError('Playlist is not available')
       setTimeout(() => setError(''), 3000)
     }

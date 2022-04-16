@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import image from '../img/GettyImages-1329515378.jpg';
+import image from '../img/myPlaylist.jpg';
 import Playlists from './playlistModal/Playlists';
 import { getFavoritePlaylists } from '../store/Selectors/appPlaylists';
 import { getChosenPlaylist } from '../store/Selectors/appValues';
@@ -24,7 +24,6 @@ export function Favorites() {
     content: favoriteTracks,
   }), [favoriteTracks])
   
-
   function showFavoritePlaylist(value) {
     dispatch(setChosenPlaylist(value));
     dispatch(openPlaylistModal())

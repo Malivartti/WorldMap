@@ -5,6 +5,7 @@ export const ACTIONS = {
   SET_CHOSEN_PLAYLIST: 'SET_CHOSEN_PLAYLIST',
   SET_IS_TRACK_PLAYING: 'SET_IS_TRACK_PLAYING',
   SET_CURRENT_TRACK_TIME: 'SET_CURRENT_TRACK_TIME',
+  SET_TRACK_VOLUME: 'SET_TRACK_VOLUME',
   CHOSEN_PLAYLIST_LOADING: 'CHOSEN_PLAYLIST_LOADING',
 };
 
@@ -15,3 +16,4 @@ export const chosenPlaylistLoading = () => ({type: ACTIONS.CHOSEN_PLAYLIST_LOADI
 export const setChosenPlaylist = (payload) => ({type: ACTIONS.SET_CHOSEN_PLAYLIST, payload});
 export const setIsTrackPlaying = (payload) => ({type: ACTIONS.SET_IS_TRACK_PLAYING, payload});
 export const setCurrentTrackTime = (payload) => ({type: ACTIONS.SET_CURRENT_TRACK_TIME, payload});
+export const setTrackVolume  = (payload) => ({type: ACTIONS.SET_TRACK_VOLUME, payload});

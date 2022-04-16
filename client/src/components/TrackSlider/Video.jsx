@@ -1,6 +1,5 @@
 import React from 'react'
 import YouTube from 'react-youtube';
-import { useDispatch } from 'react-redux';
 import { setIsTrackPlaying } from './../../store/Actions/appValues';
 
 const opts = {
@@ -13,10 +12,32 @@ const opts = {
   }
 }
 
-export default function Video({ trackData, onReady, handleError, setTrackOnPlaylist, getIndexTrack, isShow }) {
-  const dispatch = useDispatch()
+export default function Video({
+  dispatch,
+  trackData,
+  volume,
+  setError,
+  setPlayer,
+  isShowVideo,
+  setTrackOnPlaylist,
+  getIndexTrack }) {
+
+  function onReady(e) {
+    setPlayer(e.target)
+    e.target.playVideo()
+    e.target.setVolume(volume)
+    setTimeout(() => {
+      dispatch(setIsTrackPlaying(e.target.getPlayerState() !== -1))
+    }, 1500)
+  }
+
+  function handleError() {
+    setError(`Track ${trackData.name} not available`)
+    setTrackOnPlaylist(getIndexTrack() + 1)
+  }
+
   return (
-    <div className={`track-slider__video ${isShow ? 'visible' : ''}`}>
+    <div className={`track-slider__video ${isShowVideo ? 'visible' : ''}`}>
       <YouTube
         videoId={trackData.videoId}
         opts={opts}

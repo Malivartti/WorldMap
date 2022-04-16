@@ -55,14 +55,11 @@
 
 .App__header-btn_playlists {
     background: url(../img/playlists.svg);
-    background-color: var(--second-color);
-    border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
 }
 .App__header-btn_return {
     background: url(../img/return.svg);
     position: fixed;
-    background-color: var(--second-color);
     border-radius: 5px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
 }
