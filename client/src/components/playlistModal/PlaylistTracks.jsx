@@ -9,7 +9,7 @@ import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
 
 
-export default function PlaylistTracks({ playlistId }) {
+export default function PlaylistTracks({ playlistId, setError }) {
   const chosenPlaylist = useSelector(getChosenPlaylist);
   const storePlaylist = useSelector(getPlayingPlaylist);
   const loadingStatus = useSelector(getLoadingStatus)
@@ -28,6 +28,7 @@ export default function PlaylistTracks({ playlistId }) {
   }, [playlistId, loadingStatus])
 
   function blockPlaylist(id) {
+    setError('Playlist is not available')
     dispatch(showPlaylist())
     dispatch(addBlockPlaylist(id))
   }

@@ -10,7 +10,6 @@ import { removeFavoritePlaylist, addFavoritePlaylist } from './../../store/Actio
 export default function PlaylistHeader({playlist, playlistId, handleClick}) {
   const isPlaylistFavorite = isFavorite(useSelector(getFavoritePlaylists), playlistId, 'browseId');
   const playlistImg = playlist.owner === "You" ? "playlist-my__card-img" : "playlist__card-img" ;
-
   const dispatch = useDispatch()
 
   function manageFavorite() {
