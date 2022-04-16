@@ -9,23 +9,25 @@ import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
 
 
-export default function PlaylistTracks({ playlistId, setError }) {
+export default function PlaylistTracks({ setError }) {
   const chosenPlaylist = useSelector(getChosenPlaylist);
   const storePlaylist = useSelector(getPlayingPlaylist);
   const loadingStatus = useSelector(getLoadingStatus)
-  const country = useCountryName(playlistId);
+  const country = useCountryName(chosenPlaylist.browseId);
   const dispatch = useDispatch();
 
   function handleClick(track) {
-    if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
-    dispatch(setPlayingTrack({ ...track, country: country, currentTime: 0 }))
+    if (chosenPlaylist.content.length) {
+      if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
+      dispatch(setPlayingTrack({ ...track, country: country, currentTime: 0 }))
+    }
   }
 
   useEffect(() => {
-    const timeId = setTimeout(() => blockPlaylist(playlistId), 5000);
+    const timeId = setTimeout(() => blockPlaylist(chosenPlaylist.browseId), 5000);
     if (loadingStatus === 'idle') clearTimeout(timeId)
     return () => clearTimeout(timeId)
-  }, [playlistId, loadingStatus])
+  }, [chosenPlaylist.browseId, loadingStatus])
 
   function blockPlaylist(id) {
     setError('Playlist is not available')
@@ -45,7 +47,7 @@ export default function PlaylistTracks({ playlistId, setError }) {
             <div></div>
           </div>
           : <>
-            <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={playlistId} />
+            <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={chosenPlaylist.browseId} />
             {!chosenPlaylist?.content.length
               ? <h3>Not Found</h3>
               :

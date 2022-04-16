@@ -10,7 +10,6 @@ export default function PlaylistModal({ setError }) {
   const showPlaylists = useSelector(getShowPlaylists);
   const searchQuery = useSelector(getSearchQuery);
 
-  const [playlistId, setPlaylistId] = useState('')
   const [playlists, setPlaylists] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,11 +30,8 @@ export default function PlaylistModal({ setError }) {
           playlists={playlists}
           title={searchQuery}
           isLoading={isLoading}
-          setPlaylistId={setPlaylistId}
-          playlistId={playlistId}
         />
         : <PlaylistTracks
-          playlistId={playlistId}
           setError={setError}
         />}
     </div>

@@ -10,7 +10,7 @@ export const getRequestPlaylist = (browseId) => (dispatch) => {
   dispatch(chosenPlaylistLoading());
   getPlaylist(browseId)
     .then(json => {
-      dispatch(setChosenPlaylist(json));
+      dispatch(setChosenPlaylist({...json, browseId}));
     })
     .catch(console.log)
 }

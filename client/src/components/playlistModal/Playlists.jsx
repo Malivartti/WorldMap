@@ -2,18 +2,18 @@ import React from 'react';
 import PlaylistItem from './PlaylistItem'
 import { getImageUrl } from '../../helper/index';
 import { useSelector, useDispatch } from 'react-redux';
-import { showTracks } from './../../store/Actions/windowDisplay';
+import { openPlaylistModal, showTracks } from './../../store/Actions/windowDisplay';
 import { getBlocked } from './../../store/Selectors/appPlaylists';
 import { getRequestPlaylist } from '../../store/asuncActions/index'
 
 
-export default function Playlists({ playlists, title, isLoading, setPlaylistId }) {
+export default function Playlists({ playlists, title, isLoading }) {
   const blockedPlaylists = useSelector(getBlocked)
   const dispatch = useDispatch()
 
   function getPlaylistTracks(id) {
+    dispatch(openPlaylistModal())
     dispatch(showTracks())
-    setPlaylistId(id)
     dispatch(getRequestPlaylist(id));
   }
 

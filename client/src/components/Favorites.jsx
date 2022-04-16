@@ -23,9 +23,13 @@ export function Favorites() {
     trackCount: favoriteTracks.length,
     content: favoriteTracks,
   }), [favoriteTracks])
+
+  function handleFavorite() {
+    dispatch(setChosenPlaylist(favoriteTracksPlaylist))
+    showFavoritePlaylist()
+  }
   
-  function showFavoritePlaylist(value) {
-    dispatch(setChosenPlaylist(value));
+  function showFavoritePlaylist() {
     dispatch(openPlaylistModal())
     dispatch(showTracks())
   }
@@ -39,7 +43,7 @@ export function Favorites() {
   return (
     <div className="favorites">
       <h2 className='title'>Favorite tracks</h2>
-      <img src={image} alt="" className="playlist-my__img" onClick={() => showFavoritePlaylist(favoriteTracksPlaylist)} />
+      <img src={image} alt="" className="playlist-my__img" onClick={() => handleFavorite()} />
       <Playlists
         playlists={favoritePlaylists}
         title='Favorite Playlists'

@@ -58,7 +58,7 @@ export default function TrackSlider({ setError }) {
             isShowVideo={isShowVideo}
             setIsShowVideo={setIsShowVideo}
             isRepeatPlaylist={isRepeatPlaylist}
-            setIsRepeat={setIsRepeatPlaylist} />
+            setIsRepeatPlaylist={setIsRepeatPlaylist} />
         </div>
         <div className='track-slider__control'>
           <ControlBtns
