@@ -350,6 +350,10 @@
     transform: translate(-43px, 13px)
 }
 
+.track-slider__volume_off::before {
+    background: url('../img/volume_off.svg');
+}
+
 /* ################################### SEARCHBAR ###################################### */
 
 .searchBar {

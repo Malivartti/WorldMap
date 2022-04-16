@@ -9,7 +9,7 @@ function TrackVolume({ dispatch, player, volume }) {
 
   return (
     <input
-      className='track-slider__volume'
+      className={`track-slider__volume ${!+volume ? 'track-slider__volume_off' : ''}`}
       type="range"
       min="0"
       max="100"
