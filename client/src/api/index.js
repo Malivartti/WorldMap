@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = "http://localhost:3001";
+const URL = "https://git.heroku.com/world-map-react.git";
 
 export async function getSearch(search) {
   try {
