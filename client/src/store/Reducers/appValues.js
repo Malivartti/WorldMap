@@ -5,7 +5,7 @@ const defaultState = stateFromStorage ?? {
   searchQuery: '',
   playingTrack: {},
   playingPlaylist: {},
-  chosenPlaylist: { status: 'idle', playlist: {} },
+  chosenPlaylist: { isLoading: true, playlist: {} },
   isTrackPlaying: false,
   trackVolume: 50,
 };
@@ -19,9 +19,9 @@ export const appValues = (state = defaultState, action) => {
     case ACTIONS.SET_PLAYING_PLAYLIST:
       return { ...state, playingPlaylist: action.payload };
     case ACTIONS.CHOSEN_PLAYLIST_LOADING:
-      return { ...state, chosenPlaylist: { ...state.chosenPlaylist, status: 'loading' } }
+      return { ...state, chosenPlaylist: { browseId: action.payload, isLoading: true  } }
     case ACTIONS.SET_CHOSEN_PLAYLIST:
-      return { ...state, chosenPlaylist: { status: 'idle', playlist: action.payload } };
+      return { ...state, chosenPlaylist: { ...state.chosenPlaylist, isLoading: false, playlist: action.payload } };
     case ACTIONS.SET_IS_TRACK_PLAYING:
       return { ...state, isTrackPlaying: action.payload };
     case ACTIONS.SET_CURRENT_TRACK_TIME:

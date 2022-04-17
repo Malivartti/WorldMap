@@ -1,6 +1,6 @@
 import React from 'react'
 import playBtn from '../../img/play.svg'
-import { getImageUrl, isFavorite } from '../../helper/index';
+import { getImageUrl, isFavorite, isMyPlaylist } from '../../helper/index';
 import { ReactComponent as FavoriteBtn } from '../../img/like.svg'
 import { useSelector, useDispatch } from 'react-redux';
 import { getFavoritePlaylists } from '../../store/Selectors/appPlaylists';
@@ -9,7 +9,7 @@ import { removeFavoritePlaylist, addFavoritePlaylist } from './../../store/Actio
 
 export default function PlaylistHeader({ playlist, playlistId, handleClick }) {
   const isPlaylistFavorite = isFavorite(useSelector(getFavoritePlaylists), playlistId, 'browseId');
-  const isMyPlaylist = playlist.owner === 'You' && playlist.title === 'My Favorite Tracks'
+  const myPlaylist = isMyPlaylist(playlist)
   const dispatch = useDispatch()
 
   function manageFavorite() {
@@ -19,7 +19,7 @@ export default function PlaylistHeader({ playlist, playlistId, handleClick }) {
 
   return (
     <div className="playlist__card">
-      <img className={isMyPlaylist ? "playlist-my__card-img" : "playlist__card-img"} src={getImageUrl(playlist)} alt="" />
+      <img className={myPlaylist ? "playlist-my__card-img" : "playlist__card-img"} src={getImageUrl(playlist)} alt="" />
       <div className="playlist__card-main">
         <div className="playlist">
           <h2 className="playlist__card-title">{playlist.title}</h2>
@@ -28,7 +28,7 @@ export default function PlaylistHeader({ playlist, playlistId, handleClick }) {
           </div>
         </div>
         <div className="playlist__card-btns">
-          {!isMyPlaylist &&
+          {!myPlaylist &&
             <button className="playlist__btn-favorites  btn-reset" onClick={manageFavorite}>
               <FavoriteBtn fill={isPlaylistFavorite ? 'red' : 'black'} />
             </button>

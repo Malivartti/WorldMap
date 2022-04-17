@@ -1,5 +1,5 @@
 import { getCountry, getPlaylist } from "../../api";
-import { setChosenPlaylist, setSearchQuery, chosenPlaylistLoading } from "../Actions/appValues";
+import { setChosenPlaylist, setSearchQuery, chosenPlaylIstLoading } from "../Actions/appValues";
 
 export const getRequestCountry = (countryId) => (dispatch) => {
   getCountry(countryId)
@@ -7,10 +7,10 @@ export const getRequestCountry = (countryId) => (dispatch) => {
 }
 
 export const getRequestPlaylist = (browseId) => (dispatch) => {
-  dispatch(chosenPlaylistLoading());
+  dispatch(chosenPlaylIstLoading(browseId));
   getPlaylist(browseId)
     .then(json => {
-      dispatch(setChosenPlaylist({...json, browseId}));
+      dispatch(setChosenPlaylist(json));
     })
     .catch(console.log)
 }

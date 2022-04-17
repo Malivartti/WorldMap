@@ -20,3 +20,7 @@ export function getImageUrl(item) {
 export function isFavorite(items, data, chosenId){
   return items.some((item) => item[chosenId] === data);
 }
+
+export function isMyPlaylist(playlist) {
+  return playlist?.owner === 'You' && playlist?.title === 'My Favorite Tracks'
+}

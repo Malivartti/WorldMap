@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Track from './Track'
 import PlaylistHeader from './PlaylistHeader';
 import { useCountryName } from '../../hooks/useCountryName';
-import { getPlayingPlaylist, getChosenPlaylist, getLoadingStatus } from '../../store/Selectors/appValues';
+import { getPlayingPlaylist, getChosenPlaylist, getChosenPlaylistIsLoading, getChosenPlaylistId } from '../../store/Selectors/appValues';
 import { setPlayingTrack, setPlayingPlaylist } from './../../store/Actions/appValues';
 import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
@@ -11,23 +11,24 @@ import { showPlaylist } from '../../store/Actions/windowDisplay';
 
 export default function PlaylistTracks({ setError }) {
   const chosenPlaylist = useSelector(getChosenPlaylist);
-  const storePlaylist = useSelector(getPlayingPlaylist);
-  const loadingStatus = useSelector(getLoadingStatus)
-  const country = useCountryName(chosenPlaylist.browseId);
+  const chosenPlaylistId = useSelector(getChosenPlaylistId)
+  const isLoading = useSelector(getChosenPlaylistIsLoading);
+  const playingPlaylist = useSelector(getPlayingPlaylist);
+  const country = useCountryName(chosenPlaylistId);
   const dispatch = useDispatch();
 
   function handleClick(track) {
     if (chosenPlaylist.content.length) {
-      if (chosenPlaylist !== storePlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
+      if (chosenPlaylist !== playingPlaylist) dispatch(setPlayingPlaylist(chosenPlaylist))
       dispatch(setPlayingTrack({ ...track, country: country, currentTime: 0 }))
     }
   }
 
   useEffect(() => {
-    const timeId = setTimeout(() => blockPlaylist(chosenPlaylist.browseId), 5000);
-    if (loadingStatus === 'idle') clearTimeout(timeId)
+    const timeId = setTimeout(() => blockPlaylist(chosenPlaylistId), 5000);
+    if (!isLoading) clearTimeout(timeId)
     return () => clearTimeout(timeId)
-  }, [chosenPlaylist.browseId, loadingStatus])
+  }, [chosenPlaylistId, isLoading])
 
   function blockPlaylist(id) {
     setError('Playlist is not available')
@@ -42,12 +43,12 @@ export default function PlaylistTracks({ setError }) {
         onClick={() => dispatch(showPlaylist())}
       ></button>
       <div className='playlist__tracks'>
-        {loadingStatus === "loading"
+        {isLoading
           ? <div className='lds-ring'>
             <div></div>
           </div>
           : <>
-            <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={chosenPlaylist.browseId} />
+            <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={chosenPlaylistId} />
             {!chosenPlaylist?.content.length
               ? <h3>Not Found</h3>
               :
