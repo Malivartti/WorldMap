@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import image from '../img/myPlaylist.jpg';
-import Playlists from './playlistModal/Playlists';
+import PlaylistsList from './playlistModal/PlaylistsList';
 import { getFavoritePlaylists } from '../store/Selectors/appPlaylists';
 import { getChosenPlaylist } from '../store/Selectors/appValues';
 import { getFavoriteTracks } from './../store/Selectors/appPlaylists';
@@ -44,7 +44,7 @@ export function Favorites() {
     <div className="favorites">
       <h2 className='title'>Favorite tracks</h2>
       <img src={image} alt="" className="playlist-my__img" onClick={() => handleFavorite()} />
-      <Playlists
+      <PlaylistsList
         playlists={favoritePlaylists}
         title='Favorite Playlists'
         isLoading={false}

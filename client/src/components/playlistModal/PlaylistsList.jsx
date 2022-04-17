@@ -7,7 +7,7 @@ import { getBlocked } from './../../store/Selectors/appPlaylists';
 import { getRequestPlaylist } from '../../store/asuncActions/index'
 
 
-export default function Playlists({ playlists, title, isLoading }) {
+export default function PlaylistsList({ playlists, title, isLoading }) {
   const blockedPlaylists = useSelector(getBlocked)
   const dispatch = useDispatch()
 

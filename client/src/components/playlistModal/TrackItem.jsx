@@ -8,14 +8,14 @@ import '../../styles/playing.css'
 
 import { formatTime, isFavorite } from '../../helper';
 import { getImageUrl } from '../../helper/index';
-import Playing from './Playing';
+import TrackPlaying from './TrackPlaying';
 import { useCountryName } from '../../hooks/useCountryName';
 import { getFavoriteTracks } from './../../store/Selectors/appPlaylists';
 import { getPlayingTrack, getIsTrackPlaying } from '../../store/Selectors/appValues'
 import { addFavoriteTrack, removeFavoriteTrack } from './../../store/Actions/appPlaylists';
 
 
-export default function Track({ trackData, handleClick }) {
+export default function TrackItem({ trackData, handleClick }) {
   const isTrackFavorite = isFavorite(useSelector(getFavoriteTracks), trackData.videoId, 'videoId');
   const isCurrentTrack = useSelector(getPlayingTrack).videoId === trackData.videoId;
   const isPlaying = useSelector(getIsTrackPlaying);
@@ -40,7 +40,7 @@ export default function Track({ trackData, handleClick }) {
         <LikeBtn fill={isTrackFavorite ? 'red' : 'black'} />
       </button>
       <button className='song__control-play btn-reset' onClick={() => handleClick(trackData)}>
-        {isCurrentTrack ? isPlaying ? <Playing /> : <img src={stopBtn} alt='' /> : <img src={playBtn} alt='' />}
+        {isCurrentTrack ? isPlaying ? <TrackPlaying /> : <img src={stopBtn} alt='' /> : <img src={playBtn} alt='' />}
       </button>
     </div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Playing() {
+function TrackPlaying() {
   return (
     <div className="playing">
       <span className="playing__bar playing__bar1"></span>
@@ -10,4 +10,4 @@ function Playing() {
   )
 }
 
-export default Playing
+export default TrackPlaying;

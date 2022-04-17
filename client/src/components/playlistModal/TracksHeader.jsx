@@ -7,7 +7,7 @@ import { getFavoritePlaylists } from '../../store/Selectors/appPlaylists';
 import { removeFavoritePlaylist, addFavoritePlaylist } from './../../store/Actions/appPlaylists';
 
 
-export default function PlaylistHeader({ playlist, playlistId, handleClick }) {
+export default function TracksHeader({ playlist, playlistId, handleClick }) {
   const isPlaylistFavorite = isFavorite(useSelector(getFavoritePlaylists), playlistId, 'browseId');
   const myPlaylist = isMyPlaylist(playlist)
   const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import Track from './Track'
-import PlaylistHeader from './PlaylistHeader';
+import TrackItem from './TrackItem'
+import TracksHeader from './TracksHeader';
 import { useCountryName } from '../../hooks/useCountryName';
 import { getPlayingPlaylist, getChosenPlaylist, getChosenPlaylistIsLoading, getChosenPlaylistId } from '../../store/Selectors/appValues';
 import { setPlayingTrack, setPlayingPlaylist } from './../../store/Actions/appValues';
@@ -9,7 +9,7 @@ import { addBlockPlaylist } from '../../store/Actions/appPlaylists';
 import { showPlaylist } from '../../store/Actions/windowDisplay';
 
 
-export default function PlaylistTracks({ setError }) {
+export default function TracksList({ setError }) {
   const chosenPlaylist = useSelector(getChosenPlaylist);
   const chosenPlaylistId = useSelector(getChosenPlaylistId)
   const isLoading = useSelector(getChosenPlaylistIsLoading);
@@ -48,12 +48,12 @@ export default function PlaylistTracks({ setError }) {
             <div></div>
           </div>
           : <>
-            <PlaylistHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={chosenPlaylistId} />
+            <TracksHeader playlist={chosenPlaylist} handleClick={handleClick} playlistId={chosenPlaylistId} />
             {!chosenPlaylist?.content.length
               ? <h3>Not Found</h3>
               :
               chosenPlaylist?.content?.map((track, index) => {
-                return <Track
+                return <TrackItem
                   key={index}
                   trackData={track}
                   handleClick={handleClick}

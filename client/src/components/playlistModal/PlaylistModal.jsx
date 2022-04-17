@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { getSearch } from '../../api';
-import Playlists from './Playlists'
-import PlaylistTracks from './PlaylistTracks'
+import PlaylistsList from './PlaylistsList'
+import TracksList from './TracksList'
 import { getShowPlaylists } from '../../store/Selectors/windowDisplay';
 import { getSearchQuery } from './../../store/Selectors/appValues';
 
@@ -26,12 +26,12 @@ export default function PlaylistModal({ setError }) {
   return (
     <div className={`playlists ${showPlaylists ? '' : 'playlists_tracks'}`} onClick={e => e.stopPropagation()}>
       {showPlaylists
-        ? <Playlists
+        ? <PlaylistsList
           playlists={playlists}
           title={searchQuery}
           isLoading={isLoading}
         />
-        : <PlaylistTracks
+        : <TracksList
           setError={setError}
         />}
     </div>
