@@ -113,13 +113,20 @@
     flex-direction: column;
     max-width: 200px;
     background-color: var(--second-color);
-    padding: 4px;
+    padding: 6px;
     margin-bottom: 20px;
+    border-radius: 4px;
 }
 
 .playlist__img, 
 .playlist-my__img {
+    min-height: 140px;
     width: 100%;
+    min-width: 190px;
+    background: url("../img/placeholder.svg") center no-repeat;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .playlist-my__img {
@@ -140,6 +147,7 @@
     margin-bottom: 20px;
     background: var(--second-color);
     padding: 10px;
+    border-radius: 4px;
 }
 
 .playlist__card-btns {
@@ -149,10 +157,12 @@
 
 .playlist__card-img, 
 .playlist-my__card-img {
+    min-height: 100px;
     width: 180px;
     margin-right: 10px;
-    height: fit-content;
     align-self: center;
+    background: url("../img/placeholder.svg") center no-repeat;
+    border-radius: 4px 0 0 4px;
 }
 
 .playlist-my__card-img {
@@ -241,6 +251,7 @@
 .track-slider__info-cover {
     height: 100%;
     margin-right: 10px;
+    border-radius: 4px 0 0 4px;
 }
 
 .track-slider__info-meta {
